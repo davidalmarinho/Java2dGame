@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="018_PixelsManipulation:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/018_PixelsManipulation_jar</output-path>
+    <root id="archive" name="018_PixelsManipulation.jar">
+      <element id="module-output" name="Java2dGame" />
+    </root>
+  </artifact>
+</component>
