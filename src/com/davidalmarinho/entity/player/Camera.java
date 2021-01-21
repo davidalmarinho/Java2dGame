@@ -1,4 +1,4 @@
-package com.davidalmarinho.entity;
+package com.davidalmarinho.entity.player;
 
 public class Camera {
     public static int x, y;

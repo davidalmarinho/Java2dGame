@@ -1,7 +1,7 @@
 package com.davidalmarinho.world;
 
 import com.davidalmarinho.Game;
-import com.davidalmarinho.entity.Camera;
+import com.davidalmarinho.entity.player.Camera;
 import com.davidalmarinho.graphics.RenderHandler;
 import com.davidalmarinho.graphics.Screen;
 

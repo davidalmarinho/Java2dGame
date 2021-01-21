@@ -1,7 +1,9 @@
-package com.davidalmarinho.entity;
+package com.davidalmarinho.entity.player;
 
 import com.davidalmarinho.Game;
 import com.davidalmarinho.Input;
+import com.davidalmarinho.entity.Enemy;
+import com.davidalmarinho.entity.Entity;
 import com.davidalmarinho.graphics.Color;
 import com.davidalmarinho.graphics.RenderHandler;
 import com.davidalmarinho.graphics.Screen;
@@ -20,10 +22,12 @@ public class Player extends Entity {
     private BufferedImage[] down;
     private boolean walking;
     private char currentDirection = 'r';
+    private Cursor cursor;
 
     public Player(int x, int y, int width, int height, BufferedImage sprite) {
         super(x, y, width, height, sprite);
         this.loadAnimations();
+        cursor = new Cursor();
     }
 
     private void loadAnimations() {
@@ -52,6 +56,7 @@ public class Player extends Entity {
 
     @Override
     public void tick() {
+        cursor.tickCoordinates();
         this.move();
         updateCamera(getWidth(), getHeight());
         if (walking) {
@@ -158,7 +163,11 @@ public class Player extends Entity {
         else if (currentDirection == 'd')
             rgb.drawSprite(down[getIndex()], x, y);
 
-        //rgb.drawSprite(sprite, x, y);
+        if (cursor.checking)
+            rgb.drawRectangleRGB(cursor.getxGrid(), cursor.getyGrid(),
+                    16, 16, new Color(0, 0, 255));
+
+            //rgb.drawSprite(sprite, x, y);
 
         // RECTANGLES:
         // rgb.drawRectangleRGB(x, y, getWidth(), getHeight(), new Color(255, 255, 255));

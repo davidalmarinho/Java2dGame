@@ -1,7 +1,7 @@
 package com.davidalmarinho;
 
 import com.davidalmarinho.entity.Entity;
-import com.davidalmarinho.entity.Player;
+import com.davidalmarinho.entity.player.Player;
 import com.davidalmarinho.graphics.Screen;
 import com.davidalmarinho.graphics.SpriteSheet;
 import com.davidalmarinho.graphics.Window;
@@ -30,7 +30,7 @@ public class Game implements Runnable {
 
     public Game() {
         window = Window.get();
-        input = new Input(this);
+        input = new Input();
         screen = Screen.get();
         spriteSheet = new SpriteSheet("/spritesheet.png");
         entities = new ArrayList<>();
