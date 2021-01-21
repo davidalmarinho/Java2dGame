@@ -4,8 +4,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class Input implements KeyListener {
-    private final boolean[] keys = new boolean[255];
-    private final boolean[] lastKeys = new boolean[255];
+    private static final boolean[] keys = new boolean[255];
+    private static final boolean[] lastKeys = new boolean[255];
 
     public Input(Game game) {
         game.getWindow().addKeyListener(this);
@@ -32,15 +32,15 @@ public class Input implements KeyListener {
         keys[e.getKeyCode()] = false;
     }
 
-    public boolean isKeyDown(int keyCode) {
+    public static boolean isKeyDown(int keyCode) {
         return keys[keyCode] && !lastKeys[keyCode];
     }
 
-    public boolean isKeyUp(int keyCode) {
+    public static boolean isKeyUp(int keyCode) {
         return !keys[keyCode] && lastKeys[keyCode];
     }
 
-    public boolean isKey(int keyCode) {
+    public static boolean isKey(int keyCode) {
         return keys[keyCode];
     }
 }

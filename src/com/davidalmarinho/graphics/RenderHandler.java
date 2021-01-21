@@ -6,18 +6,14 @@ import java.awt.image.*;
 import java.util.Arrays;
 
 public class RenderHandler {
-    protected Game game;
-    private final MyFont font;
     private final RGB rgb;
     private final ARGB argb;
     private final Light light;
 
-    public RenderHandler(Game game) {
-        this.game = game;
-        int WIDTH = game.getWindow().getWIDTH();
-        int HEIGHT = game.getWindow().getHEIGHT();
+    public RenderHandler() {
+        int WIDTH = Window.WIDTH;
+        int HEIGHT = Window.HEIGHT;
 
-        font = new MyFont();
         argb = new ARGB(WIDTH, HEIGHT);
         rgb = new RGB(WIDTH, HEIGHT);
         light = new Light(WIDTH, HEIGHT);
@@ -73,39 +69,15 @@ public class RenderHandler {
         }
     }
 
-    public void rotate(double rad, int centerX, int centerY) {
-        double angle;
-        angle = Math.cos(rad);
-
-    }
-
     private void setPixel(int[] pixels, Color color, int x, int y) {
-        int WIDTH = game.getWindow().getWIDTH();
-        int HEIGHT = game.getWindow().getHEIGHT();
+        int WIDTH = Window.WIDTH;
+        int HEIGHT = Window.HEIGHT;
 
         if (x < 0 || x >= WIDTH) return;
         if (y < 0 || y >= HEIGHT) return;
 
 
         pixels[x + (y * WIDTH)] = color.getColor();
-    }
-
-    public class MyFont {
-        private String chars = "" + //
-                "ABCDEFGHIJKLMNOPQRSTUVWXYZ      " + //
-                "abcdefghijklmnopqrstuvwxyz      " + //
-                "0123456789.,!?'\"-+=/\\%()<>:;     " + //
-                "";
-
-        public void drawString(String msg, int x, int y, Color color) {
-            // FIXME: 28/11/20 I don't know what I am doing
-            msg = msg.toUpperCase();
-            for (int i = 0; i < msg.length(); i++) {
-                int ix = chars.indexOf(msg.charAt(i));
-                if (ix >= 0)
-                    setPixel(rgb.rgbPixels, color, x + i * 8, y);
-            }
-        }
     }
 
     public class RGB {
@@ -210,7 +182,7 @@ public class RenderHandler {
         }
 
         public void renderDarkness(Color color) {
-            Arrays.fill(lightPixels, color.getColor());
+            // Arrays.fill(lightPixels, color.getColor());
         }
 
         /**
@@ -271,10 +243,6 @@ public class RenderHandler {
         public void clear() {
             Arrays.fill(lightPixels, 0x00ffffff);
         }
-    }
-
-    public MyFont getFont() {
-        return font;
     }
 
     public RGB getRGB() {

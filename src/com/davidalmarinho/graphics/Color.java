@@ -1,7 +1,7 @@
 package com.davidalmarinho.graphics;
 
 public class Color {
-    public int r, g, b, a;
+    public int a, r, g, b;
 
     public Color(int r, int g, int b) {
         this.r = r;
@@ -9,17 +9,26 @@ public class Color {
         this.b = b;
     }
 
-    public Color(int r, int g, int b, int a) {
+    public Color(int a, int r, int g, int b) {
+        this.a = a;
         this.r = r;
         this.g = g;
         this.b = b;
-        this.a = a;
     }
 
     public int getColor() {
-        /* >> -> var x / 2 ^ number
+        int a = this.a << 24;
+        int r = this.r << 16;
+        int g = this.g << 8;
+        int b = this.b;
+
+        return a + r + g + b;
+    }
+
+    /*public int getColor() {
+        *//* >> -> var x / 2 ^ number
          * << -> var x * 2 ^ number
-         * */
+         * *//*
         if (a == 0) {
             String hexadecimalColor = getHexadecimalColor(r) + getHexadecimalColor(g) + getHexadecimalColor(b);
             return convertIntoDecimalColor(hexadecimalColor);
@@ -40,12 +49,12 @@ public class Color {
 
     private String getHexadecimalColor(int color) {
         // Convert RGB to Hexadecimal
-        /* Ex.:
+        *//* Ex.:
          * color = 255;
          * color / 16 = 15.9375;
          * firstLetter = 15;
          * secondLetter = 0,9375 * 16 = 15;
-         * */
+         * *//*
         int findFirstHexDigit = color >> 4;
         double findSecondHexDigit = (((double) color / 16) - findFirstHexDigit) * 16;
 
@@ -65,7 +74,7 @@ public class Color {
                 int hexValue = getHexNumberFromTable(hexArgb[0]);
 
                 // Check if we have to negate the number due to it may be a very high number
-                /*if (hexValue * 268435440 >= Integer.MAX_VALUE) { // 16 * 16777215
+                *//*if (hexValue * 268435440 >= Integer.MAX_VALUE) { // 16 * 16777215
 
                     letter0 = -hexValue * 268435456; // 16 * 16777216
                     if (hexArgb[i] == 'f')
@@ -84,7 +93,7 @@ public class Color {
                         breaker = 16;
 
                 } else {
-                }*/
+                }*//*
 
                 letter0 = hexValue * 268435456;
                 // letter0 += 0;
@@ -196,5 +205,5 @@ public class Color {
         public static int numberF() {
             return 15;
         }
-    }
+    }*/
 }

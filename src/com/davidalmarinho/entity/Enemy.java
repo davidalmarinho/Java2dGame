@@ -2,6 +2,7 @@ package com.davidalmarinho.entity;
 
 import com.davidalmarinho.Game;
 import com.davidalmarinho.graphics.RenderHandler;
+import com.davidalmarinho.graphics.Screen;
 import com.davidalmarinho.world.World;
 
 import java.awt.image.BufferedImage;
@@ -28,7 +29,7 @@ public class Enemy extends Entity {
     }
 
     @Override
-    public void tick(Game game) {
+    public void tick() {
         animations(7, 3);
         double speed = 0.0;
         ai(speed);
@@ -58,8 +59,8 @@ public class Enemy extends Entity {
     }
 
     @Override
-    public void render(Game game) {
-        RenderHandler.RGB rgb = game.getRenderHandler().getRGB();
+    public void render() {
+        RenderHandler.RGB rgb = Screen.screen.getRenderHandler().getRGB();
         rgb.drawSprite(sprite, getX() - Camera.x, getY() - Camera.y);
     }
 }

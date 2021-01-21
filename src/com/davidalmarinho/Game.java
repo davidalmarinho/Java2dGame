@@ -2,7 +2,6 @@ package com.davidalmarinho;
 
 import com.davidalmarinho.entity.Entity;
 import com.davidalmarinho.entity.Player;
-import com.davidalmarinho.graphics.RenderHandler;
 import com.davidalmarinho.graphics.Screen;
 import com.davidalmarinho.graphics.SpriteSheet;
 import com.davidalmarinho.graphics.Window;
@@ -22,19 +21,17 @@ public class Game implements Runnable {
     // Components
     private final Screen screen;
     private final Input input;
-    private final RenderHandler renderHandler;
-    private final World world;
+    public static World world;
     // Entities
-    public List<Entity> entities;
+    public static List<Entity> entities;
     public static Player player;
     // Controller
     private int curLevel = 0;
 
     public Game() {
-        window = new Window();
+        window = Window.get();
         input = new Input(this);
-        screen = new Screen(this);
-        renderHandler = screen.getRenderHandler();
+        screen = Screen.get();
         spriteSheet = new SpriteSheet("/spritesheet.png");
         entities = new ArrayList<>();
         world = new World(this, curLevel);
@@ -46,7 +43,7 @@ public class Game implements Runnable {
 
     private void tick() {
         for (int i = 0; i < entities.size(); i++) {
-            entities.get(i).tick(this);
+            entities.get(i).tick();
         }
     }
 
@@ -113,27 +110,7 @@ public class Game implements Runnable {
         this.stop();
     }
 
-    public Screen getScreen() {
-        return screen;
-    }
-
-    public RenderHandler getRenderHandler() {
-        return renderHandler;
-    }
-
     public Window getWindow() {
         return window;
-    }
-
-    public Input getInput() {
-        return input;
-    }
-
-    public World getWorld() {
-        return world;
-    }
-
-    public Player getPlayer() {
-        return player;
     }
 }

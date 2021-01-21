@@ -4,11 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Window extends Canvas {
-    private final int SCALE = 3;
-    private final int WIDTH = 640 / SCALE;
-    private final int HEIGHT = 480 / SCALE;
-    private int widthWindow = WIDTH;
-    private int heightWindow = HEIGHT;
+    public static Window window;
+    public static int SCALE = 3;
+    public static int WIDTH = 640 / SCALE;
+    public static int HEIGHT = 480 / SCALE;
+    public int widthWindow = WIDTH;
+    public int heightWindow = HEIGHT;
 
     public Window() {
         createWindow();
@@ -16,7 +17,7 @@ public class Window extends Canvas {
 
     private void createWindow() {
         setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
-        JFrame jFrame = new JFrame("018_PixelManipulation");
+        JFrame jFrame = new JFrame("2d_Game");
         jFrame.add(this);
         jFrame.setResizable(true);
         jFrame.pack();
@@ -30,24 +31,10 @@ public class Window extends Canvas {
         this.heightWindow = (int) Math.ceil((float) getHeight() / SCALE);
     }
 
-    public int getWIDTH() {
-        return WIDTH;
-    }
+    public static Window get() {
+        if (window == null) window = new Window();
 
-    public int getHEIGHT() {
-        return HEIGHT;
-    }
-
-    public int getWidthWindow() {
-        return widthWindow;
-    }
-
-    public int getHeightWindow() {
-        return heightWindow;
-    }
-
-    public int getSCALE() {
-        return SCALE;
+        return window;
     }
 
     public Canvas getCanvas() {

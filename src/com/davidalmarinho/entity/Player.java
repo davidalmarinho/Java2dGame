@@ -4,6 +4,7 @@ import com.davidalmarinho.Game;
 import com.davidalmarinho.Input;
 import com.davidalmarinho.graphics.Color;
 import com.davidalmarinho.graphics.RenderHandler;
+import com.davidalmarinho.graphics.Screen;
 import com.davidalmarinho.world.World;
 
 import java.awt.event.KeyEvent;
@@ -50,18 +51,17 @@ public class Player extends Entity {
     }
 
     @Override
-    public void tick(Game game) {
-        Input input = game.getInput();
-        this.move(input);
-        updateCamera(game, getWidth(), getHeight());
+    public void tick() {
+        this.move();
+        updateCamera(getWidth(), getHeight());
         if (walking) {
             animations(7, 3);
         } else {
             this.resetAnimation();
         }
 
-        for (int i = 0; i < game.entities.size(); i++) {
-            Entity entity = game.entities.get(i);
+        for (int i = 0; i < Game.entities.size(); i++) {
+            Entity entity = Game.entities.get(i);
             if (entity instanceof Enemy) {
                 if (isCollidingPerfect(this, entity)) {
                     System.out.println("Colliding :)");
@@ -72,17 +72,17 @@ public class Player extends Entity {
         this.changeColourTest();
     }
 
-    private void move(Input input) {
+    private void move() {
         int speed = 1;
 
         for (int i = speed; i != 0; i--) {
-            boolean goRight = input.isKey(KeyEvent.VK_RIGHT)
+            boolean goRight = (Input.isKey(KeyEvent.VK_RIGHT) || Input.isKey(KeyEvent.VK_D))
                     && World.isFree(getX() + i, getY(), getWidth(), getHeight());
-            boolean goLeft = input.isKey(KeyEvent.VK_LEFT)
+            boolean goLeft = (Input.isKey(KeyEvent.VK_LEFT) || Input.isKey(KeyEvent.VK_A))
                     && World.isFree(getX() - i, getY(), getWidth(), getHeight());
-            boolean goUp = input.isKey(KeyEvent.VK_UP)
+            boolean goUp = (Input.isKey(KeyEvent.VK_UP) || Input.isKey(KeyEvent.VK_W))
                     && World.isFree(getX(), getY() - i, getWidth(), getHeight());
-            boolean goDown = input.isKey(KeyEvent.VK_DOWN)
+            boolean goDown = (Input.isKey(KeyEvent.VK_DOWN) || Input.isKey(KeyEvent.VK_S))
                     && World.isFree(getX(), getY() + i, getWidth(), getHeight());
 
             if (goRight) {
@@ -140,10 +140,9 @@ public class Player extends Entity {
     }
 
     @Override
-    public void render(Game game) {
-        RenderHandler.ARGB argb = game.getRenderHandler().getARGB();
-        RenderHandler.RGB rgb = game.getRenderHandler().getRGB();
-        RenderHandler.MyFont font = game.getRenderHandler().getFont();
+    public void render() {
+        RenderHandler.ARGB argb = Screen.screen.getRenderHandler().getARGB();
+        RenderHandler.RGB rgb = Screen.screen.getRenderHandler().getRGB();
 
         int x = getX() - Camera.x;
         int y = getY() - Camera.y;
@@ -159,13 +158,11 @@ public class Player extends Entity {
         else if (currentDirection == 'd')
             rgb.drawSprite(down[getIndex()], x, y);
 
-        font.drawString("Hello World!", 32, 32, new Color(255, 255, 0));
-
         //rgb.drawSprite(sprite, x, y);
 
         // RECTANGLES:
         // rgb.drawRectangleRGB(x, y, getWidth(), getHeight(), new Color(255, 255, 255));
-        // argb.drawRectangleARGB(x, y, getWidth(), getHeight(), new Color(255, 255, 255, 255));
+        argb.drawRectangleARGB(x, y, getWidth(), getHeight(), new Color(0, 0, 255, 140));
         // argb.drawRectangleARGB(x, y, 16, 16, Color.get(0, 0, 255, chng));
 
         // OVALS:
@@ -180,6 +177,6 @@ public class Player extends Entity {
         int x = this.getX() + getWidth() / 2 - width / 2 - Camera.x;
         int y = this.getY() + getHeight() / 2 - height / 2 - Camera.y;
         light.renderCircleLight(x, y,
-                width, height, new Color(255, 255, 255, 200), 6);
+                width, height, new Color(200, 255, 255, 255), 6);
     }
 }

@@ -6,18 +6,20 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 
 public class Screen extends RenderHandler {
-    public Screen(Game game) {
-        super(game);
+    public static Screen screen;
+
+    public Screen() {
+        super();
     }
 
     public void render() {
-        BufferStrategy bs = game.getWindow().getBufferStrategy();
-        int WIDTH = game.getWindow().getWidthWindow();
-        int HEIGHT = game.getWindow().getHeightWindow();
-        int SCALE = game.getWindow().getSCALE();
+        BufferStrategy bs = Window.window.getBufferStrategy();
+        int WIDTH = Window.window.widthWindow;
+        int HEIGHT = Window.window.heightWindow;
+        int SCALE = Window.SCALE;
 
         if (bs == null) {
-            game.getWindow().getCanvas().createBufferStrategy(2);
+            Window.window.getCanvas().createBufferStrategy(2);
             return;
         }
 
@@ -26,7 +28,7 @@ public class Screen extends RenderHandler {
         // g.setColor(new Color(255, 0, 0));
         // g.fillRect(0, 0, 16, 16);
 
-        game.getWorld().render(game);
+        Game.world.render();
         this.renderErrorMessage(g);
 
         g = bs.getDrawGraphics();
@@ -47,15 +49,15 @@ public class Screen extends RenderHandler {
     }
 
     private void renderEntities() {
-        for (int i = 0; i < game.entities.size(); i++) {
-            game.entities.get(i).render(game);
+        for (int i = 0; i < Game.entities.size(); i++) {
+            Game.entities.get(i).render();
         }
     }
 
     private void renderLight() {
         getLight().renderDarkness(new Color(0, 0, 0, 210));
-        for (int i = 0; i < game.entities.size(); i++) {
-            game.entities.get(i).renderLight(getLight());
+        for (int i = 0; i < Game.entities.size(); i++) {
+            // Game.entities.get(i).renderLight(getLight());
         }
     }
 
@@ -65,6 +67,12 @@ public class Screen extends RenderHandler {
             g.setFont(new Font("arial", Font.BOLD, 16));
             g.drawString("Error", 8, 16);
         }
+    }
+
+    public static Screen get() {
+        if (screen == null) screen = new Screen();
+
+        return screen;
     }
 
     public RenderHandler getRenderHandler() {

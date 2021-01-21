@@ -1,7 +1,7 @@
 package com.davidalmarinho.entity;
 
-import com.davidalmarinho.Game;
 import com.davidalmarinho.graphics.RenderHandler;
+import com.davidalmarinho.graphics.Window;
 import com.davidalmarinho.world.World;
 
 import java.awt.image.BufferedImage;
@@ -23,15 +23,15 @@ public abstract class Entity {
         this.sprite = sprite;
     }
 
-    public abstract void tick(Game game);
+    public abstract void tick();
 
-    public abstract void render(Game game);
+    public abstract void render();
 
     public void renderLight(RenderHandler.Light light) {}
 
-    protected void updateCamera(Game game, int width, int height) {
-        int WIDTH = game.getWindow().getWIDTH();
-        int HEIGHT = game.getWindow().getHEIGHT();
+    protected void updateCamera(int width, int height) {
+        int WIDTH = Window.WIDTH;
+        int HEIGHT = Window.HEIGHT;
         int tileSize = World.tileSize;
 
         Camera.x = Camera.clamp(this.getX() + width / 2 - (WIDTH / 2), 0,

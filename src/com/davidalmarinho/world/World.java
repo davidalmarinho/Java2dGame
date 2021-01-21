@@ -3,6 +3,7 @@ package com.davidalmarinho.world;
 import com.davidalmarinho.Game;
 import com.davidalmarinho.entity.Camera;
 import com.davidalmarinho.entity.Enemy;
+import com.davidalmarinho.graphics.Window;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -50,7 +51,7 @@ public class World {
                     if (curPixel == 0xFFff0000) {
                         Enemy enemy = new Enemy(curX * tileSize, curY * tileSize,
                                 tileSize, tileSize, Game.spriteSheet.getSprite(0, 0, 1, 1));
-                        game.entities.add(enemy);
+                        Game.entities.add(enemy);
                     }
                 }
 
@@ -85,21 +86,21 @@ public class World {
         return true;
     }
 
-    public void render(Game game) {
+    public void render() {
         int startX, startY;
         startX = Camera.x >> exponent;
         startY = Camera.y >> exponent;
 
         int finalX, finalY;
-        finalX = startX + (game.getWindow().getWIDTH() >> 4);
-        finalY = startY + (game.getWindow().getHEIGHT() >> 4);
+        finalX = startX + (Window.WIDTH >> 4);
+        finalY = startY + (Window.HEIGHT >> 4);
 
         for (int xx = startX; xx <= finalX + 1; xx++)
             for (int yy = startY; yy <= finalY + 1; yy++) {
                 if (xx < 0 || xx >= width || yy < 0 || yy >= height) continue;
 
                 Tile tile = tiles[xx + yy * width];
-                tile.render(game);
+                tile.render();
             }
     }
 }
