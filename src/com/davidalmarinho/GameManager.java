@@ -40,7 +40,7 @@ public class GameManager extends Engine {
     @Override
     public void update(float dt) {
         currentScene.update(dt);
-        System.out.println("FPS: " + 1.0 / dt);
+        // System.out.println("FPS: " + 1.0 / dt);
     }
 
     public void draw(Graphics g) {
