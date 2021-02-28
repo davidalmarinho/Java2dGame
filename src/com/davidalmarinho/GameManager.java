@@ -10,8 +10,8 @@ import com.davidalmarinho.utils.Constants;
 import java.awt.*;
 
 public class GameManager extends Engine {
-    private Image background;
-    private Graphics bufferGraphics;
+    private Image background = null;
+    private Graphics bufferGraphics = null;
     // Instance
     private static GameManager gameManager;
     // Components
@@ -49,7 +49,7 @@ public class GameManager extends Engine {
             bufferGraphics = background.getGraphics();
         }
 
-        renderOffScreen(g);
+        renderOffScreen(bufferGraphics);
 
         g.drawImage(background, 0, 0, window.getWidth(), window.getHeight(), null);
     }

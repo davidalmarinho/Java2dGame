@@ -2,7 +2,6 @@ package com.davidalmarinho.game_objects.components;
 
 import com.davidalmarinho.data_structures.AssetPool;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,15 +18,5 @@ public class Spritesheet extends Component {
                 sprites.add(new Sprite(parent.image.getSubimage(x * width, y * height, width, height)));
             }
         }
-    }
-
-    @Override
-    public void update(float dt) {
-
-    }
-
-    @Override
-    public void render(Graphics2D g2) {
-
     }
 }

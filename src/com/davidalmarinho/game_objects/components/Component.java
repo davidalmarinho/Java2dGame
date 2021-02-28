@@ -7,6 +7,11 @@ import java.awt.Graphics2D;
 public abstract class Component {
     public GameObject gameObject;
 
-    public abstract void update(float dt);
-    public abstract void render(Graphics2D g2);
+    public void update(float dt) {
+
+    }
+
+    public void render(Graphics2D g2) {
+
+    }
 }
