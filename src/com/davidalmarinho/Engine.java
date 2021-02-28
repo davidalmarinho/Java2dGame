@@ -29,6 +29,7 @@ public abstract class Engine implements Runnable {
 
     @Override
     public void run() {
+        // TODO It's a little buggy, fix this
         float lastTime = .0f;
 
         try {

@@ -1,7 +1,7 @@
 package com.davidalmarinho.game_objects;
 
 import com.davidalmarinho.game_objects.components.Component;
-import com.davidalmarinho.utils.Transform;
+import com.davidalmarinho.data_structures.Transform;
 
 import java.awt.*;
 import java.util.ArrayList;

@@ -1,4 +1,6 @@
-package com.davidalmarinho.utils;
+package com.davidalmarinho.data_structures;
+
+import com.davidalmarinho.utils.Vector2;
 
 public class Transform {
     public Vector2 position;
