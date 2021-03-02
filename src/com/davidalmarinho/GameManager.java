@@ -1,7 +1,7 @@
 package com.davidalmarinho;
 
 import com.davidalmarinho.graphics.Window;
-import com.davidalmarinho.scenes.LevelEditorSCene;
+import com.davidalmarinho.scenes.LevelEditorScene;
 import com.davidalmarinho.scenes.LevelScene;
 import com.davidalmarinho.scenes.Scene;
 import com.davidalmarinho.scenes.Scenes;
@@ -10,6 +10,7 @@ import com.davidalmarinho.utils.Constants;
 import java.awt.*;
 
 public class GameManager extends Engine {
+    // Graphics
     private Image background = null;
     private Graphics bufferGraphics = null;
     // Instance
@@ -19,7 +20,8 @@ public class GameManager extends Engine {
     // Scenes
     Scene currentScene;
 
-    public GameManager() {
+    // Using Singleton
+    private GameManager() {
         window = Window.get();
         changeScene(Scenes.LEVEL_SCENE);
     }
@@ -31,7 +33,7 @@ public class GameManager extends Engine {
                 System.out.println("Inside Level Scene");
                 break;
             case LEVEL_EDITOR_SCENE:
-                currentScene = new LevelEditorSCene();
+                currentScene = new LevelEditorScene();
                 System.out.println("Inside Level Editor Scene");
                 break;
         }
@@ -64,8 +66,8 @@ public class GameManager extends Engine {
         draw(window.getGraphics());
     }
 
-    /* Just get an instance of GameManager, because we just want a GameManager no 2 or 3,
-     * and beacuse it's easier to have access to all stuff.
+    /* Just get an instance of GameManager, because we just want a GameManager not 2 or 3,
+     * and because it's easier to have access to all stuff.
      */
     public static GameManager get() {
         if (gameManager == null) {

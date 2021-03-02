@@ -2,7 +2,7 @@ package com.davidalmarinho.scenes;
 
 import java.awt.*;
 
-public class LevelEditorSCene extends Scene {
+public class LevelEditorScene extends Scene {
 
     @Override
     public void init() {

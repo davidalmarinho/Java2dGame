@@ -8,7 +8,19 @@ import java.awt.*;
 public class Window extends JFrame {
     private static Window window;
 
-    public Window() {
+    /* Here we will apply a structure named as Singleton.
+     * Following this structure, we create an instance of a class and we turn
+     * private our constructor.
+     * But, why we will use this?
+     * Very simple. We just want a window for our game, we don't want the mistake
+     * that we create many windows and just crash the software of our pc.
+     * So, when we want to "create" a new Window, we write:
+     * Window window = Window.getInstance();
+     * By this way, we will reuse always the same window.
+     * We also can access to Windows's variables and methods by an easier way using this.
+     * -> Ex.: Window.get().dispose();
+     */
+    private Window() {
         this.setTitle("2D Open World Game");
         this.setSize(new Dimension(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT));
         this.setResizable(false);

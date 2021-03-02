@@ -4,6 +4,7 @@ import com.davidalmarinho.game_objects.GameObject;
 import com.davidalmarinho.game_objects.components.Player;
 import com.davidalmarinho.data_structures.Transform;
 import com.davidalmarinho.game_objects.components.Spritesheet;
+import com.davidalmarinho.graphics.Window;
 import com.davidalmarinho.utils.Constants;
 import com.davidalmarinho.utils.Vector2;
 
