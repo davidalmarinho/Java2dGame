@@ -1,6 +1,7 @@
 package com.davidalmarinho.data_structures;
 
 import com.davidalmarinho.game_objects.components.Sprite;
+import com.davidalmarinho.world.Level;
 import com.davidalmarinho.utils.WarningFrame;
 
 import java.io.File;
@@ -23,10 +24,15 @@ public class AssetPool {
      * This will turn our code more safe :D
      */
     static Map<String, Sprite> spriteMap = new HashMap<>();
+    static Map<String, Level> levels = new HashMap<>();
 
     // Just checking if we already have a Sprite with the same location
     public static boolean hasSprite(String pictureFile) {
         return spriteMap.containsKey(pictureFile);
+    }
+
+    public static boolean hasLevel(String levelFile) {
+        return levels.containsKey(levelFile);
     }
 
     public static Sprite getSprite(String pictureFile) {
@@ -35,12 +41,27 @@ public class AssetPool {
             // Add Sprite
             spriteMap.put(pictureFile, sprite);
         } else {
-            // Throw a warning
-            File file = new File(pictureFile);
-            String warningMsg = "Warning: File already loaded: '" + file.getAbsolutePath() + "'";
-            new WarningFrame(warningMsg);
-            System.out.println(warningMsg);
+           sendWarning(pictureFile);
         }
         return sprite;
+    }
+
+    public static Level getLevel(String levelFile) {
+        Level level = new Level(levelFile);
+        if (!hasLevel(levelFile)) {
+            levels.put(levelFile, level);
+        } else {
+            sendWarning(levelFile);
+        }
+        return level;
+    }
+
+    // Will warning the developer if he adds the same file more than a time
+    private static void sendWarning(String filePath) {
+        // Throw a warning
+        File file = new File(filePath);
+        String warningMsg = "Warning: File already loaded: '" + file.getAbsolutePath() + "'";
+        new WarningFrame(warningMsg);
+        System.out.println(warningMsg);
     }
 }

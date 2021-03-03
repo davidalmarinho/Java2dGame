@@ -18,11 +18,18 @@ public class GameManager extends Engine {
     // Components
     Window window;
     // Scenes
-    Scene currentScene;
+    private Scene currentScene;
 
     // Using Singleton
     private GameManager() {
-        window = Window.get();
+        window = Window.getInstance();
+    }
+
+    /* We need here an init method, because sometimes, we want to access to the instance of gameManager if init()
+     * method in the Scene's classes. So we only initialize the scenes after initializing GameManager
+     */
+    @Override
+    public void init() {
         changeScene(Scenes.LEVEL_SCENE);
     }
 
@@ -30,10 +37,12 @@ public class GameManager extends Engine {
         switch (scene) {
             case LEVEL_SCENE:
                 currentScene = new LevelScene();
+                currentScene.init();
                 System.out.println("Inside Level Scene");
                 break;
             case LEVEL_EDITOR_SCENE:
                 currentScene = new LevelEditorScene();
+                currentScene.init();
                 System.out.println("Inside Level Editor Scene");
                 break;
         }
@@ -66,14 +75,18 @@ public class GameManager extends Engine {
         draw(window.getGraphics());
     }
 
+    public Scene getCurrentScene() {
+        return currentScene;
+    }
+
     /* Just get an instance of GameManager, because we just want a GameManager not 2 or 3,
      * and because it's easier to have access to all stuff.
      */
-    public static GameManager get() {
-        if (gameManager == null) {
-            gameManager = new GameManager();
+    public static GameManager getInstance() {
+        if (GameManager.gameManager == null) {
+            GameManager.gameManager = new GameManager();
         }
 
-        return gameManager;
+        return GameManager.gameManager;
     }
 }

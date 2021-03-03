@@ -14,7 +14,6 @@ public abstract class Scene {
     public Scene() {
         gameObjects = new ArrayList<>();
         renderer = new Renderer();
-        init();
     }
 
     protected void addGameObject(GameObject gameObject) {

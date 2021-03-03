@@ -29,7 +29,7 @@ public class Window extends JFrame {
         this.setVisible(true);
     }
 
-    public static Window get() {
+    public static Window getInstance() {
         if (window == null) {
             window = new Window();
         }
