@@ -1,6 +1,6 @@
 package com.davidalmarinho.game_objects.components;
 
-import java.awt.*;
+import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 
 public class Player extends Component {
@@ -12,7 +12,7 @@ public class Player extends Component {
 
     @Override
     public void update(float dt) {
-        // System.out.println("Player ticked!");
+
     }
 
     @Override

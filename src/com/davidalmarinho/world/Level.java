@@ -4,6 +4,7 @@ import com.davidalmarinho.GameManager;
 import com.davidalmarinho.data_structures.AssetPool;
 import com.davidalmarinho.game_objects.GameObject;
 import com.davidalmarinho.scenes.LevelScene;
+import com.davidalmarinho.utils.ErrorFrame;
 import com.davidalmarinho.utils.WarningFrame;
 
 import javax.imageio.ImageIO;
@@ -22,9 +23,9 @@ public class Level {
             this.map = ImageIO.read(file);
 
         } catch (IOException e) {
-            String error = "Error: Couldn't load '" + new File(levelFile).getAbsolutePath() + "'.";
+            String error = "Couldn't load '" + new File(levelFile).getAbsolutePath() + "'.";
             System.out.println(error);
-            new WarningFrame(error);
+            new ErrorFrame(error);
             e.printStackTrace();
         }
     }

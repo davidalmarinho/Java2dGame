@@ -1,6 +1,7 @@
 package com.davidalmarinho;
 
 import com.davidalmarinho.graphics.Window;
+import com.davidalmarinho.input.KeyboardInput;
 import com.davidalmarinho.scenes.LevelEditorScene;
 import com.davidalmarinho.scenes.LevelScene;
 import com.davidalmarinho.scenes.Scene;
@@ -19,12 +20,14 @@ public class GameManager extends Engine {
     private static GameManager gameManager;
     // Components
     Window window;
+    KeyboardInput keyboardInput;
     // Scenes
     private Scene currentScene;
 
     // Using Singleton
     private GameManager() {
         window = Window.getInstance();
+        keyboardInput = KeyboardInput.getInstance(window);
     }
 
     /* We need here an init method, because sometimes, we want to access to the instance of gameManager if init()
@@ -53,6 +56,7 @@ public class GameManager extends Engine {
     @Override
     public void update(float dt) {
         currentScene.update(dt);
+        keyboardInput.update();
         // System.out.println("FPS: " + 1.0 / dt);
     }
 
@@ -79,6 +83,10 @@ public class GameManager extends Engine {
 
     public Scene getCurrentScene() {
         return currentScene;
+    }
+
+    public KeyboardInput getKeyboardInput() {
+        return keyboardInput;
     }
 
     /* Just get an instance of GameManager, because we just want a GameManager not 2 or 3,

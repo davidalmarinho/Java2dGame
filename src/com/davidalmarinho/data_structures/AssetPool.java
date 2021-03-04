@@ -60,7 +60,7 @@ public class AssetPool {
     private static void sendWarning(String filePath) {
         // Throw a warning
         File file = new File(filePath);
-        String warningMsg = "Warning: File already loaded: '" + file.getAbsolutePath() + "'";
+        String warningMsg = "File already loaded: '" + file.getAbsolutePath() + "'";
         new WarningFrame(warningMsg);
         System.out.println(warningMsg);
     }
