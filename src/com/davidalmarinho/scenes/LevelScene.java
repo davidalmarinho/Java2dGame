@@ -24,7 +24,7 @@ public class LevelScene extends Scene {
         this.player = new GameObject("Player", new Transform(new Vector2(60, 60)));
         spritesheet = new Spritesheet("assets/spritesheet.png", 4, 6,
                 16, 16);
-        levels = Levels.getInstance("assets/levels");
+        levels = Levels.getInstance("assets/levels/");
 
         // Creating a spritesheet with the same location of the spritesheet above to check if AssetPool is working fine
         new Spritesheet("assets/spritesheet.png", 4, 6, 16, 16);
@@ -34,9 +34,6 @@ public class LevelScene extends Scene {
         player.transform.scale.y = 4;
         this.player.addComponent(playerComp);
         addGameObject(player);
-
-        // new Levels("assets/levels"); <- Was a test to check the AssetPool Structure (to test again we need to set Levels' constructor as public
-
         Levels.getInstance("assets/levels").levels.get(level).init();
     }
 

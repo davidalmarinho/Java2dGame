@@ -1,6 +1,7 @@
 package com.davidalmarinho.world;
 
 import com.davidalmarinho.GameManager;
+import com.davidalmarinho.data_structures.AssetPool;
 import com.davidalmarinho.game_objects.GameObject;
 import com.davidalmarinho.scenes.LevelScene;
 import com.davidalmarinho.utils.WarningFrame;
@@ -19,6 +20,7 @@ public class Level {
         try {
             File file = new File(levelFile);
             this.map = ImageIO.read(file);
+
         } catch (IOException e) {
             String error = "Error: Couldn't load '" + new File(levelFile).getAbsolutePath() + "'.";
             System.out.println(error);

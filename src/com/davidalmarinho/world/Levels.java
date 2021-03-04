@@ -15,7 +15,19 @@ public class Levels {
         levels = new ArrayList<>();
         int currentLevel = 0;
 
-        // TODO 03/03/2021 Remove '/' from levelDirectoryPath if '/' is the last char
+        // Check if last letter if a '/' and remove it if is to make our code more secure
+        int lastCharIndex = levelsDirectoryPath.length() - 1;
+        if (levelsDirectoryPath.charAt(lastCharIndex) == '/') {
+            char[] old = levelsDirectoryPath.toCharArray();
+            char[] updated = new char[levelsDirectoryPath.length() - 1];
+
+            // We will copy each letter of levelsDirectoryPath String with exception of last '/' if it exists
+            for (int currentChar = 0; currentChar < updated.length; currentChar++) {
+                updated[currentChar] = old[currentChar];
+            }
+            levelsDirectoryPath = String.valueOf(updated);
+            // System.out.println(levelsDirectoryPath);
+        }
 
         // Check all the levels that our level's folder has
         while (true) {
@@ -29,6 +41,12 @@ public class Levels {
                 break;
             }
         }
+    }
+
+    // To add a level with security (using AssetPool) we always should use this method
+    public void addLevel(String levelFile) {
+        Level level = AssetPool.getLevel(levelFile);
+        levels.add(level);
     }
 
     public static Levels getInstance(String levelsDirectoryPath) {

@@ -7,11 +7,13 @@ import com.davidalmarinho.scenes.Scene;
 import com.davidalmarinho.scenes.Scenes;
 import com.davidalmarinho.utils.Constants;
 
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 
 public class GameManager extends Engine {
     // Graphics
-    private Image background = null;
+    private BufferedImage background = null;
     private Graphics bufferGraphics = null;
     // Instance
     private static GameManager gameManager;
@@ -56,7 +58,7 @@ public class GameManager extends Engine {
 
     public void draw(Graphics g) {
         if (background == null) {
-            background = window.createImage(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
+            background = (BufferedImage) window.createImage(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
             bufferGraphics = background.getGraphics();
         }
 
