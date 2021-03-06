@@ -5,17 +5,20 @@ import com.davidalmarinho.data_structures.Transform;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class GameObject {
     public final String name;
     public Transform transform;
     public List<Component> components;
+    public int depth;
 
     public GameObject(String name, Transform transform) {
         components = new ArrayList<>();
         this.name = name;
         this.transform = transform;
+        depth = 0;
     }
 
     public <T extends Component> T getComponent(Class<T> componentClass) {
@@ -35,6 +38,12 @@ public class GameObject {
     public void removeComponent(Component component) {
         components.remove(component);
     }
+
+    /* Creating a comparator to after use for Depth in Renderer class (the gameObject that as a
+     * smaller depth is rendered earlier than the gameObject that as a higher depth)
+     */
+    public static Comparator<GameObject> gameObjectSorter =
+            Comparator.comparingInt(gameObject -> gameObject.depth);
 
     public void update(float dt) {
         for (Component c : components) {

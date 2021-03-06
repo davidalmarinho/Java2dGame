@@ -1,4 +1,4 @@
-package com.davidalmarinho;
+package com.davidalmarinho.main;
 
 public class Main {
 

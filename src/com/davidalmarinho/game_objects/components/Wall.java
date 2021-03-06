@@ -2,16 +2,11 @@ package com.davidalmarinho.game_objects.components;
 
 import java.awt.Graphics2D;
 
-public class Player extends Component {
+public class Wall extends Component {
     private final Sprite sprite;
 
-    public Player(Sprite sprite) {
+    public Wall(Sprite sprite) {
         this.sprite = sprite;
-    }
-
-    @Override
-    public void update(float dt) {
-
     }
 
     @Override

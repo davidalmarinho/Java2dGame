@@ -1,7 +1,7 @@
 package com.davidalmarinho.data_structures;
 
 import com.davidalmarinho.game_objects.components.Sprite;
-import com.davidalmarinho.world.Level;
+import com.davidalmarinho.levels.Level;
 import com.davidalmarinho.utils.WarningFrame;
 
 import java.io.File;

@@ -21,13 +21,14 @@ public class Window extends JFrame {
      * -> Ex.: Window.get().dispose();
      */
     private Window() {
-        this.setTitle("2D Open World Game");
-        this.setSize(new Dimension(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT));
+        this.setTitle("2D Platform Game");
         this.setResizable(true);
-        this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setMinimumSize(new Dimension(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT));
+        this.pack();
+        this.setSize(new Dimension(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT));
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     public static Window getInstance() {

@@ -1,6 +1,6 @@
 package com.davidalmarinho.game_objects.components;
 
-import com.davidalmarinho.GameManager;
+import com.davidalmarinho.main.GameManager;
 import com.davidalmarinho.input.KeyboardInput;
 import com.davidalmarinho.utils.Vector2;
 
@@ -23,21 +23,19 @@ public class RigidBody extends Component {
 
     private void controlPlayer(float dt) {
         KeyboardInput keyboardInput = GameManager.getInstance().getKeyboardInput();
-        float x = gameObject.transform.position.x;
-        float y = gameObject.transform.position.y;
+        Vector2 playerPosition = gameObject.transform.position;
         if (keyboardInput.isKey(KeyEvent.VK_W) || keyboardInput.isKey(KeyEvent.VK_UP)) {
             // Moves a certain number of pixels (velocity.x, velocity.y) per second
-            y -= dt * velocity.y;
+            playerPosition.y -= dt * velocity.y;
         } else if (keyboardInput.isKey(KeyEvent.VK_S) || keyboardInput.isKey(KeyEvent.VK_DOWN)) {
-            y += dt * velocity.y;
+            playerPosition.y += dt * velocity.y;
         }
 
         if (keyboardInput.isKey(KeyEvent.VK_D) || keyboardInput.isKey(KeyEvent.VK_RIGHT)) {
-            x += dt * velocity.x;
+            playerPosition.x += dt * velocity.x;
         } else if (keyboardInput.isKey(KeyEvent.VK_A) || keyboardInput.isKey(KeyEvent.VK_LEFT)) {
-            x -= dt * velocity.x;
+            playerPosition.x -= dt * velocity.x;
         }
-        gameObject.transform.position.x = x;
-        gameObject.transform.position.y = y;
+        gameObject.transform.position = playerPosition;
     }
 }

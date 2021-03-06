@@ -1,4 +1,4 @@
-package com.davidalmarinho;
+package com.davidalmarinho.main;
 
 import com.davidalmarinho.graphics.Window;
 import com.davidalmarinho.input.KeyboardInput;
@@ -68,7 +68,15 @@ public class GameManager extends Engine {
 
         renderOffScreen(bufferGraphics);
 
-        g.drawImage(background, 0, 0, window.getWidth(), window.getHeight(), null);
+        /* window.getComponent(0).getY() or window.getRootPane().getY()
+         * is the first value under of the top bar (the bar where you can minimize and maximise the window)
+         *  in the window.
+         * We will use it, because, by some way, that bar steals us some rendering space.
+         * So we have to start render at the first pixel under of the bar,
+         * so in the y's coordinates of the JRootPane.
+         */
+        g.drawImage(background, 0, window.getRootPane().getY(), window.getWidth(),
+                window.getRootPane().getHeight(), null);
     }
 
     public void renderOffScreen(Graphics g) {

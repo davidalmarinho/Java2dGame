@@ -1,4 +1,4 @@
-package com.davidalmarinho.world;
+package com.davidalmarinho.levels;
 
 import com.davidalmarinho.data_structures.AssetPool;
 
