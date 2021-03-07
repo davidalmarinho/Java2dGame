@@ -10,6 +10,7 @@ import com.davidalmarinho.utils.Constants;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 public class GameManager extends Engine {
@@ -21,6 +22,7 @@ public class GameManager extends Engine {
     // Components
     Window window;
     KeyboardInput keyboardInput;
+    Debugger debugger;
     // Scenes
     private Scene currentScene;
 
@@ -28,6 +30,7 @@ public class GameManager extends Engine {
     private GameManager() {
         window = Window.getInstance();
         keyboardInput = KeyboardInput.getInstance(window);
+        debugger = Debugger.getInstance();
     }
 
     /* We need here an init method, because sometimes, we want to access to the instance of gameManager if init()
@@ -56,8 +59,11 @@ public class GameManager extends Engine {
     @Override
     public void update(float dt) {
         currentScene.update(dt);
+        if (keyboardInput.isKeyDown(KeyEvent.VK_F3)) {
+            debugger.debugging = !debugger.debugging;
+        }
+        debugger.update(dt);
         keyboardInput.update();
-        // System.out.println("FPS: " + 1.0 / dt);
     }
 
     public void draw(Graphics g) {
@@ -67,6 +73,7 @@ public class GameManager extends Engine {
         }
 
         renderOffScreen(bufferGraphics);
+        debugger.draw(bufferGraphics);
 
         /* window.getComponent(0).getY() or window.getRootPane().getY()
          * is the first value under of the top bar (the bar where you can minimize and maximise the window)

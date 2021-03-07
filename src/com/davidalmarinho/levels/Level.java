@@ -86,6 +86,8 @@ public class Level {
                     gameObject = new GameObject("Wall", new Transform(new Vector2(currentWorldCoordinates)));
                     Wall wallComp = new Wall(levelScene.getSpritesheet().sprites.get(3));
                     gameObject.addComponent(wallComp);
+                    BoxBounds boxBounds = new BoxBounds(Constants.TILE_SIZE, Constants.TILE_SIZE);
+                    gameObject.addComponent(boxBounds);
                     gameObjects.add(gameObject);
                 } else if (currentPixel == MapColors.FLOOR_COLOR.getColor()) {
                     gameObject = new GameObject("Grass", new Transform(new Vector2(currentWorldCoordinates)));

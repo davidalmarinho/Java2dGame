@@ -8,7 +8,7 @@ import java.awt.event.KeyEvent;
 public class KeyboardInput extends KeyAdapter {
     // Just a keyboard
     private static KeyboardInput instance;
-    private final int numberOfKeys = 104;
+    private final int numberOfKeys = 256;
     private final boolean[] keys = new boolean[numberOfKeys];
     private final boolean[] lastKeys = new boolean[numberOfKeys];
 
@@ -35,16 +35,25 @@ public class KeyboardInput extends KeyAdapter {
 
     // Always doing action while pressing
     public boolean isKey(int keyCode) {
+        if (keyCode > numberOfKeys) {
+            return false;
+        }
         return keys[keyCode];
     }
 
     // Do just an action when we press it
     public boolean isKeyDown(int keyCode) {
+        /*if (keyCode > numberOfKeys) {
+            return false;
+        }*/
         return keys[keyCode] && !lastKeys[keyCode];
     }
 
     // Do an action when we release it
     public boolean isKeyUp(int keyCode) {
+        if (keyCode > numberOfKeys) {
+            return false;
+        }
         return !keys[keyCode] && lastKeys[keyCode];
     }
 
