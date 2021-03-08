@@ -10,6 +10,8 @@ import java.awt.event.KeyEvent;
 
 public class RigidBody extends Component {
     public Vector2 velocity;
+    private boolean jumping;
+    private float jump;
 
     public RigidBody(Vector2 velocity) {
         this.velocity = velocity;
@@ -17,6 +19,37 @@ public class RigidBody extends Component {
 
     @Override
     public void update(float dt) {
+        float gravity = dt * velocity.y;
+
+        // If we aren't jumping, we are falling, so we will add the gravity to this place
+        if (!jumping) {
+            for (float speed = gravity; speed >= 0; speed -= 1.0f) {
+                // Check floor collision
+                if (isFree(Wall.class, gameObject.transform.position.x, gameObject.transform.position.y + speed)) {
+                    gameObject.transform.position.y += speed;
+                }
+            }
+        }
+
+        // If we are jumping, we will jump during a certain period of time
+        if (jumping) {
+            for (float speed = gravity; speed >= 0; speed -= 1.0f) {
+                // Check "roof" collision
+                if (isFree(Wall.class, gameObject.transform.position.x, gameObject.transform.position.y - speed)) {
+                    gameObject.transform.position.y -= speed;
+                }
+            }
+            jump += dt;
+            if (jump >= 6.0f) {
+                jump = .0f;
+                jumping = false;
+            }
+        }
+
+        /*if (!falling) {
+
+        }*/
+
         // If player component as been found, we will move the game object Player
         if (gameObject.getComponent(Player.class) != null) {
             controlPlayer(dt);
@@ -26,23 +59,11 @@ public class RigidBody extends Component {
     private void controlPlayer(float dt) {
         KeyboardInput keyboardInput = GameManager.getInstance().getKeyboardInput();
         Vector2 playerCoordinates = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y);
-        int velocityX = (int) (dt * velocity.x);
-        int velocityY = (int) (dt * velocity.y);
 
-        for (int speed = velocityX; speed != 0; speed--) {
-            if (keyboardInput.isKey(KeyEvent.VK_W)
-                    && isFree(Wall.class, playerCoordinates.x, playerCoordinates.y - speed)) {
-                // Moves a certain number of pixels (velocity.x, velocity.y) per second
-                playerCoordinates.y -= speed;
-            } else if (keyboardInput.isKey(KeyEvent.VK_S)
-                    && isFree(Wall.class, playerCoordinates.x, playerCoordinates.y + speed)) {
-                playerCoordinates.y += speed;
-            }
-        }
-
-        for (int speed = velocityY; speed != 0; speed--) {
+        for (float speed = velocity.x * dt; speed >= 0; speed -= 1.0f) {
             if (keyboardInput.isKey(KeyEvent.VK_D)
                     && isFree(Wall.class, playerCoordinates.x + speed, playerCoordinates.y)) {
+                // Moves a certain number of pixels (velocity.x, velocity.y) per second
                 playerCoordinates.x += speed;
             } else if (keyboardInput.isKey(KeyEvent.VK_A)
                     && isFree(Wall.class, playerCoordinates.x - speed, playerCoordinates.y)) {
@@ -50,11 +71,32 @@ public class RigidBody extends Component {
             }
         }
 
+        if (keyboardInput.isKeyDown(KeyEvent.VK_SPACE)
+                && !isFree(Wall.class, playerCoordinates.x, playerCoordinates.y + 2)) {
+            jumping = true;
+        }
+
+        // TODO delete this piece of code
+        /*float gravity = dt * velocity.y;
+        for (float speed = gravity; speed >= 0; speed -= 1.0f) {
+            if (keyboardInput.isKey(KeyEvent.VK_W)) {
+                if (isFree(Wall.class, playerCoordinates.x, gameObject.transform.position.y - speed)) {
+                    playerCoordinates.y -= speed;
+
+                }
+            } else if (keyboardInput.isKey(KeyEvent.VK_S)) {
+                if (isFree(Wall.class, playerCoordinates.x, gameObject.transform.position.y + speed)) {
+                    playerCoordinates.y += speed;
+                }
+            }
+        }*/
+
         gameObject.transform.position = playerCoordinates;
     }
 
     /**
      * To check if a gameObject is colliding with another gameObject without solid collision
+     *
      * @param gameObject1 The gameObject that is colliding with
      * @return If these gameObjects are colliding
      */
@@ -74,6 +116,7 @@ public class RigidBody extends Component {
 
     /**
      * Check if the next pixel if free
+     *
      * @param xNext The next x's gameObject position
      * @param yNext The next y's gameObject position
      * @return A solid collision between these 2 gameObjects
@@ -101,8 +144,8 @@ public class RigidBody extends Component {
                  */
                 int startX = (int) (xNext / Constants.TILE_SIZE);
                 int startY = (int) (yNext / Constants.TILE_SIZE);
-                int finalX = (int) (xNext + width - 1) / Constants.TILE_SIZE;
-                int finalY = (int) (yNext + height - 1) / Constants.TILE_SIZE;
+                int finalX = (int) Math.ceil(xNext + width - 1) / Constants.TILE_SIZE;
+                int finalY = (int) Math.ceil(yNext + height - 1) / Constants.TILE_SIZE;
 
                 // Save coordinates of solid gameObject
                 Vector2 solidCoordinates = new Vector2(

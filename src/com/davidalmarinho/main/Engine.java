@@ -25,21 +25,30 @@ public abstract class Engine implements Runnable {
     }
 
     public abstract void init();
+
     public abstract void update(float dt);
+
     public abstract void render();
 
     @Override
     public void run() {
         float lastTime = .0f;
+        // float unprocessedTime = 0.0f;
+        // float updateCap = 1.0f / 60.0f;
 
         try {
             while (running) {
                 float currentTime = Time.getTime();
-                float delta = currentTime - lastTime;
+                float delta = (currentTime - lastTime);
                 lastTime = currentTime;
 
-                update(delta);
-                render();
+                // unprocessedTime += delta;
+
+                // while (unprocessedTime >= updateCap) {
+                    // unprocessedTime -= delta;
+                    update(delta);
+                    render();
+                // }
             }
             stop();
         } catch (Exception e) {

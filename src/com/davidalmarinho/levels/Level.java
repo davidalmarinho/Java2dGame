@@ -72,7 +72,7 @@ public class Level {
                     Player playerComp = new Player(levelScene.getSpritesheet().sprites.get(14));
                     gameObject.addComponent(playerComp);
 
-                    RigidBody rigidBody = new RigidBody(new Vector2(160, 160));
+                    RigidBody rigidBody = new RigidBody(new Vector2(160, Constants.GRAVITY));
                     gameObject.addComponent(rigidBody);
 
                     BoxBounds boxBounds = new BoxBounds(Constants.TILE_SIZE, Constants.TILE_SIZE);

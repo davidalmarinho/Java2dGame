@@ -10,4 +10,7 @@ public class Constants {
     public static final int TILE_SIZE = 16 * GAME_SCALE;
     public static int WORLD_WIDTH;
     public static int WORLD_HEIGHT;
+
+    // Gravity
+    public static final float GRAVITY = 200;
 }
