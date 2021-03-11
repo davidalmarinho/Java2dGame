@@ -31,9 +31,7 @@ public class LevelScene extends Scene {
     @Override
     public void update(float dt) {
         camera.lockCamera(player);
-        for (GameObject g : gameObjects) {
-            g.update(dt);
-        }
+        updateGameObjects(dt);
 
         // Just to check if the levels management is going well (3 seconds and it switches to the 2nd level
         parseLevelFpsTest += dt;

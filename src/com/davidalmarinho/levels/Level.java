@@ -65,8 +65,7 @@ public class Level {
                 // Replace Player
                 if (currentPixel == MapColors.PLAYER_COLOR.getColor()) {
                     gameObject = new GameObject("Player",
-                            new Transform(new Vector2(currentWorldCoordinates)));
-
+                            new Transform(currentWorldCoordinates.copy()));
                     gameObject.depth = 1;
 
                     Player playerComp = new Player(levelScene.getSpritesheet().sprites.get(14));
@@ -83,14 +82,14 @@ public class Level {
 
                     // Place buildings, ground...
                 } else if (currentPixel == MapColors.WALL_COLOR.getColor()) {
-                    gameObject = new GameObject("Wall", new Transform(new Vector2(currentWorldCoordinates)));
+                    gameObject = new GameObject("Wall", new Transform(currentWorldCoordinates.copy()));
                     Wall wallComp = new Wall(levelScene.getSpritesheet().sprites.get(3));
                     gameObject.addComponent(wallComp);
                     BoxBounds boxBounds = new BoxBounds(Constants.TILE_SIZE, Constants.TILE_SIZE);
                     gameObject.addComponent(boxBounds);
                     gameObjects.add(gameObject);
                 } else if (currentPixel == MapColors.FLOOR_COLOR.getColor()) {
-                    gameObject = new GameObject("Grass", new Transform(new Vector2(currentWorldCoordinates)));
+                    gameObject = new GameObject("Grass", new Transform(currentWorldCoordinates.copy()));
                     Floor floorComp = new Floor(levelScene.getSpritesheet().sprites.get(2));
                     gameObject.addComponent(floorComp);
                     gameObjects.add(gameObject);
@@ -103,7 +102,7 @@ public class Level {
                  */
                 if (gameObject != null && gameObject.getComponent(Floor.class) == null
                         && gameObject.getComponent(Wall.class) == null) {
-                    placeFloorInEmptyPlaces(gameObjects, new Vector2(currentWorldCoordinates));
+                    placeFloorInEmptyPlaces(gameObjects, currentWorldCoordinates.copy());
                 }
             }
         }
@@ -112,8 +111,6 @@ public class Level {
         for (GameObject gameObject : gameObjects) {
             GameManager.getInstance().getCurrentScene().addGameObject(gameObject);
         }
-
-        System.out.println("GameObjects size: " + gameObjects.size());
     }
 
     private void placeFloorInEmptyPlaces(List<GameObject> gameObjects, Vector2 worldCoordinates) {

@@ -1,7 +1,5 @@
 package com.davidalmarinho.input;
 
-import com.davidalmarinho.graphics.Window;
-
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -12,8 +10,8 @@ public class KeyboardInput extends KeyAdapter {
     private final boolean[] keys = new boolean[numberOfKeys];
     private final boolean[] lastKeys = new boolean[numberOfKeys];
 
-    private KeyboardInput(Window window) {
-        window.addKeyListener(this);
+    private KeyboardInput() {
+
     }
 
     public void update() {
@@ -57,9 +55,9 @@ public class KeyboardInput extends KeyAdapter {
         return !keys[keyCode] && lastKeys[keyCode];
     }
 
-    public static KeyboardInput getInstance(Window window) {
+    public static KeyboardInput getInstance() {
         if (instance == null) {
-            instance = new KeyboardInput(window);
+            instance = new KeyboardInput();
         }
 
         return instance;

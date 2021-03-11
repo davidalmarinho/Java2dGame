@@ -19,8 +19,8 @@ public class RigidBody extends Component {
 
     @Override
     public void update(float dt) {
-        float gravity = dt * velocity.y;
-
+        // This code will be to a special mode in our game :)))
+        /*float gravity = dt * velocity.y;
         // If we aren't jumping, we are falling, so we will add the gravity to this place
         if (!jumping) {
             for (float speed = gravity; speed >= 0; speed -= 1.0f) {
@@ -44,10 +44,6 @@ public class RigidBody extends Component {
                 jump = .0f;
                 jumping = false;
             }
-        }
-
-        /*if (!falling) {
-
         }*/
 
         // If player component as been found, we will move the game object Player
@@ -76,20 +72,18 @@ public class RigidBody extends Component {
             jumping = true;
         }
 
-        // TODO delete this piece of code
-        /*float gravity = dt * velocity.y;
-        for (float speed = gravity; speed >= 0; speed -= 1.0f) {
+        for (float speed = velocity.y * dt; speed >= 0; speed -= 1.0f) {
             if (keyboardInput.isKey(KeyEvent.VK_W)) {
-                if (isFree(Wall.class, playerCoordinates.x, gameObject.transform.position.y - speed)) {
+                if (isFree(Wall.class, playerCoordinates.x, playerCoordinates.y - speed)) {
                     playerCoordinates.y -= speed;
 
                 }
             } else if (keyboardInput.isKey(KeyEvent.VK_S)) {
-                if (isFree(Wall.class, playerCoordinates.x, gameObject.transform.position.y + speed)) {
+                if (isFree(Wall.class, playerCoordinates.x, playerCoordinates.y + speed)) {
                     playerCoordinates.y += speed;
                 }
             }
-        }*/
+        }
 
         gameObject.transform.position = playerCoordinates;
     }

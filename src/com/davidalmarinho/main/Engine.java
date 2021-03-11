@@ -46,6 +46,9 @@ public abstract class Engine implements Runnable {
 
                 // while (unprocessedTime >= updateCap) {
                     // unprocessedTime -= delta;
+                    /* TODO 08 / 03 / 2021 if using game loop with limit frame rate, parse unprocessedTime as a
+                     *  parameter instead of delta
+                     */
                     update(delta);
                     render();
                 // }

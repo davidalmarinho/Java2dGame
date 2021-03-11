@@ -19,6 +19,12 @@ public abstract class Scene {
         renderer = new Renderer(camera);
     }
 
+    public void updateGameObjects(float dt) {
+        for (GameObject g : gameObjects) {
+            g.update(dt);
+        }
+    }
+
     public void addGameObject(GameObject gameObject) {
         gameObjects.add(gameObject);
         renderer.submit(gameObject);
