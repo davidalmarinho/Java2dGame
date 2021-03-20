@@ -1,35 +1,41 @@
 package com.davidalmarinho.game_objects.components;
 
 import com.davidalmarinho.input.MouseInput;
+import com.davidalmarinho.main.Camera;
 import com.davidalmarinho.main.GameManager;
-import com.davidalmarinho.utils.Constants;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 
 public class SnapToGrid extends Component {
-    private final int width, height;
+    private final int tileWidth, tileHeight;
     private int x, y;
 
-    public SnapToGrid() {
-        this.width = Constants.TILE_SIZE;
-        this.height = Constants.TILE_SIZE;
+    public SnapToGrid(int tileWidth, int tileHeight) {
+        this.tileWidth = tileWidth;
+        this.tileHeight = tileHeight;
     }
 
     @Override
     public void update(float dt) {
         MouseInput mouseInput = GameManager.getInstance().mouseInput;
 
-        int xMouse = (int) (mouseInput.mousePosition.x);
-        int yMouse = (int) (mouseInput.mousePosition.y);
+        Camera camera = GameManager.getInstance().getCurrentScene().camera;
 
-        x = xMouse / 64 * 64;
-        y = yMouse / 64 * 64;
+        int xMouse = (int) (mouseInput.mousePosition.x + camera.position.x);
+        int yMouse = (int) (mouseInput.mousePosition.y + camera.position.y);
+
+        x = xMouse / tileWidth * tileWidth;
+        y = yMouse / tileHeight * tileHeight;
     }
 
     @Override
     public void render(Graphics2D g2) {
+        Camera camera = GameManager.getInstance().getCurrentScene().camera;
         g2.setColor(Color.GREEN);
-        g2.fillRect(x, y, Constants.TILE_SIZE, Constants.TILE_SIZE);
+        if (!GameManager.getInstance().mouseInput.isDragging) {
+            g2.fillRect((int) (x - camera.position.x), (int) (y - camera.position.y),
+                    tileWidth, tileHeight);
+        }
     }
 }

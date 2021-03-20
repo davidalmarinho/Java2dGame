@@ -24,15 +24,15 @@ public class GameManager extends Engine {
     Window window;
     KeyboardInput keyboardInput;
     public MouseInput mouseInput;
-    Debugger debugger;
+    public Debugger debugger;
     // Scenes
     private Scene currentScene;
 
     // Using Singleton
     private GameManager() {
         background = new BufferedImage(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, BufferedImage.TYPE_INT_RGB);
-        mouseInput = MouseInput.getInstance();
         window = Window.getInstance(mouseInput);
+        mouseInput = MouseInput.getInstance();
         keyboardInput = KeyboardInput.getInstance();
         addListeners(window);
         debugger = Debugger.getInstance();
@@ -40,8 +40,8 @@ public class GameManager extends Engine {
 
     private void addListeners(Window window) {
         window.addKeyListener(keyboardInput);
-        /*window.addMouseListener(mouseInput);
-        window.addMouseMotionListener(mouseInput);*/
+        window.addMouseListener(mouseInput);
+        window.addMouseMotionListener(mouseInput);
     }
 
     /* We need here an init method, because sometimes, we want to access to the instance of gameManager if init()
@@ -79,6 +79,7 @@ public class GameManager extends Engine {
         }
         debugger.update(dt);
         keyboardInput.update();
+        mouseInput.update();
     }
 
     public void draw(Graphics g) {

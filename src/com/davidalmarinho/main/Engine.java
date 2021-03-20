@@ -33,8 +33,8 @@ public abstract class Engine implements Runnable {
     @Override
     public void run() {
         float lastTime = .0f;
-        // float unprocessedTime = 0.0f;
-        // float updateCap = 1.0f / 60.0f;
+        float unprocessedTime = 0.0f;
+        float updateCap = 1.0f / 120.0f;
 
         try {
             while (running) {
@@ -42,16 +42,13 @@ public abstract class Engine implements Runnable {
                 float delta = (currentTime - lastTime);
                 lastTime = currentTime;
 
-                // unprocessedTime += delta;
+                unprocessedTime += delta;
 
-                // while (unprocessedTime >= updateCap) {
-                    // unprocessedTime -= delta;
-                    /* TODO 08 / 03 / 2021 if using game loop with limit frame rate, parse unprocessedTime as a
-                     *  parameter instead of delta
-                     */
-                    update(delta);
+                while (unprocessedTime >= updateCap) {
+                    unprocessedTime -= delta;
+                    update(unprocessedTime);
                     render();
-                // }
+                }
             }
             stop();
         } catch (Exception e) {

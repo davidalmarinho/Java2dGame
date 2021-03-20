@@ -8,10 +8,13 @@ import java.awt.event.MouseEvent;
 
 public class MouseInput extends MouseAdapter {
     private static MouseInput instance;
+    // Keep coordinates
     public Vector2 mousePosition, mouseDragPosition;
+    // Controllers
     private final int numberOfButtons = 5;
     private final boolean[] buttons = new boolean[numberOfButtons];
     private final boolean[] lastButtons = new boolean[numberOfButtons];
+    public boolean isDragging;
 
     private MouseInput() {
         mousePosition = new Vector2();
@@ -48,14 +51,16 @@ public class MouseInput extends MouseAdapter {
 
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
+        isDragging = false;
         mousePosition.x = mouseEvent.getX() / Constants.WINDOW_SCALE_X;
         mousePosition.y = mouseEvent.getY() / Constants.WINDOW_SCALE_Y;
     }
 
     @Override
     public void mouseDragged(MouseEvent mouseEvent) {
-        mouseDragPosition.x = mouseEvent.getX() - mousePosition.x;
-        mouseDragPosition.y = mouseEvent.getY() - mousePosition.y;
+        isDragging = true;
+        mouseDragPosition.x = mouseEvent.getX() / Constants.WINDOW_SCALE_X - mousePosition.x;
+        mouseDragPosition.y = mouseEvent.getY() / Constants.WINDOW_SCALE_Y - mousePosition.y;
     }
 
     public static MouseInput getInstance() {

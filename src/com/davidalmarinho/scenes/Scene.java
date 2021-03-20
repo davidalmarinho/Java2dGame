@@ -11,7 +11,7 @@ import java.util.List;
 public abstract class Scene {
     public List<GameObject> gameObjects;
     protected Renderer renderer;
-    protected Camera camera;
+    public Camera camera;
 
     public Scene() {
         gameObjects = new ArrayList<>();

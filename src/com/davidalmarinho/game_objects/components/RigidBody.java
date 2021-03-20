@@ -73,15 +73,12 @@ public class RigidBody extends Component {
         }
 
         for (float speed = velocity.y * dt; speed >= 0; speed -= 1.0f) {
-            if (keyboardInput.isKey(KeyEvent.VK_W)) {
-                if (isFree(Wall.class, playerCoordinates.x, playerCoordinates.y - speed)) {
-                    playerCoordinates.y -= speed;
-
-                }
-            } else if (keyboardInput.isKey(KeyEvent.VK_S)) {
-                if (isFree(Wall.class, playerCoordinates.x, playerCoordinates.y + speed)) {
-                    playerCoordinates.y += speed;
-                }
+            if (keyboardInput.isKey(KeyEvent.VK_W) && isFree(Wall.class,
+                    playerCoordinates.x, playerCoordinates.y - speed)) {
+                playerCoordinates.y -= speed;
+            } else if (keyboardInput.isKey(KeyEvent.VK_S) && isFree(Wall.class,
+                    playerCoordinates.x, playerCoordinates.y + speed)) {
+                playerCoordinates.y += speed;
             }
         }
 
