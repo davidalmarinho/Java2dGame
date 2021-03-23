@@ -28,28 +28,25 @@ This is a game development project, so I will show you an example.
 
 Most 2d games have spritesheets. Spritesheets are a group of sprites and each sprite is an animation of a game object.
 
-<img title="Tile" src="file:///C:/Users/David/Desktop/spritesheet.png" alt="Error Loading image" data-align="center" width="322">
+<img title="Spritesheet" src="https://github.com/davidalmarinho/Java2dGame/blob/main/assets/spritesheet.png?raw=true" alt="Sorry, we couldn't load the image" data-align="center" width="258">
 
-For example, in this image, we have twenty sprites. Being twelve sprites of Player, a grass, a wall, and six of Enemy.
+For example, in this image, we have sprites of Player, Enemy...
+
+| Note | Each Player's image is a Sprite. |
+| ---- | -------------------------------- |
+
+
 
 Now, let's see the logic behind an AssetPool to make sure that this 'spritesheet.png' isn't loaded more than a time.
 
-```flowchart
-st=>start: Init Game
-loadSpritesheet=>parallel: Load Spritesheet to the Game
-assetPool=>parallel: List it in AssetPool
-cond=>condition: File loaded twice?
-warnDev=>operation: Throw Warning
-e=>end: Play Game
-
-st->loadSpritesheet->cond
-
-cond(yes)->warnDev->e
-cond(no)->e
-
-loadSpritesheet(path1, right)->assetPool
-loadSpritesheet(path2, bottom)->cond
-
+```mermaid
+flowchart TB
+    start(Init Game)--> loadSpritesheet[Load Spritesheet to the Game];
+    loadSpritesheet --> assetPool[List it to AssetPool];
+    assetPool--> alreadyLoaded{File Loaded Twice?};
+    alreadyLoaded --> |No| playGame(Play Game);
+    alreadyLoaded --> |Yes| warnDev[Throw Warning];
+    warnDev --> playGame
 ```
 
 So, at first, we launch the game.
@@ -63,5 +60,3 @@ If some spritesheet's file has loaded more than a time, we warn the developer, e
 This was my explanation about AssetPool.
 
 Thank you :D
-
-
