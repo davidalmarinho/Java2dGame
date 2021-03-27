@@ -18,4 +18,9 @@ public class Player extends Component {
     public void render(Graphics2D g2) {
         drawQuick(g2, sprite);
     }
+
+    @Override
+    public Component copy() {
+        return new Player(this.sprite);
+    }
 }

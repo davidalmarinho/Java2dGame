@@ -9,6 +9,10 @@ import java.awt.geom.AffineTransform;
 public abstract class Component {
     public GameObject gameObject;
 
+    public void init() {
+
+    }
+
     public void update(float dt) {
 
     }
@@ -16,6 +20,8 @@ public abstract class Component {
     public void render(Graphics2D g2) {
 
     }
+
+    public abstract Component copy();
 
     protected void drawQuick(Graphics2D g2, Sprite sprite) {
         Vector2 position = gameObject.transform.position.copy();

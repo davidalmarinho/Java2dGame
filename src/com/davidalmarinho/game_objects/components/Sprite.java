@@ -25,6 +25,7 @@ public class Sprite extends Component {
         this.image = image;
     }
 
+    @Override
     public Component copy() {
         return new Sprite(this.image);
     }

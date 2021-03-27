@@ -35,8 +35,12 @@ public class GameObject {
         component.gameObject = this;
     }
 
-    public void removeComponent(Component component) {
-        components.remove(component);
+    public <T extends Component> void removeComponent(Class<T> componentClass) {
+        for (Component c : components) {
+            if (componentClass.isAssignableFrom(c.getClass())) {
+                return;
+            }
+        }
     }
 
     /* Creating a comparator to after use for Depth in Renderer class (the gameObject that as a
@@ -46,7 +50,13 @@ public class GameObject {
             Comparator.comparingInt(gameObject -> gameObject.depth);
 
     public GameObject copy() {
-        return new GameObject(this.name, this.transform.copy());
+        GameObject gameObject = new GameObject(this.name, this.transform.copy());
+        for (Component c : components) {
+            if (c.copy() != null) {
+                gameObject.addComponent(c.copy());
+            }
+        }
+        return gameObject;
     }
 
     public void update(float dt) {

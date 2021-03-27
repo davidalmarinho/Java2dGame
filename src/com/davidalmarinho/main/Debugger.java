@@ -33,8 +33,8 @@ public class Debugger {
 
     private void countGameObjects() {
         countGameObjects = 0;
-        for (int i = 0; i < GameManager.getInstance().getCurrentScene().gameObjects.size(); i++) {
-            countGameObjects = i;
+        while (countGameObjects < GameManager.getInstance().getCurrentScene().gameObjects.size()) {
+            countGameObjects++;
         }
     }
 

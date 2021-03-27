@@ -70,7 +70,7 @@ public class CameraControllers extends Component {
 
     @Override
     public void render(Graphics2D g2) {
-        g2.setColor(new Color(255));
+        g2.setColor(new Color(0, 0, 255, 150));
         // Up
         g2.fillRect(100, 0, Constants.WINDOW_WIDTH - 200, Constants.TILE_SIZE);
         // Right
@@ -79,5 +79,10 @@ public class CameraControllers extends Component {
         g2.fillRect(100, Constants.WINDOW_HEIGHT - Constants.TILE_SIZE, Constants.WINDOW_WIDTH - 200, Constants.TILE_SIZE);
         // Left
         g2.fillRect(0, 100, Constants.TILE_SIZE, Constants.WINDOW_HEIGHT - 200);
+    }
+
+    @Override
+    public Component copy() {
+        return null;
     }
 }

@@ -12,4 +12,8 @@ public class Floor extends Component {
     public void render(Graphics2D g2) {
         drawQuick(g2, sprite);
     }
+
+    public Component copy() {
+        return new Floor(this.sprite);
+    }
 }

@@ -15,4 +15,12 @@ public class Constants {
 
     // Gravity
     public static final float GRAVITY = 200;
+
+    // LevelEditorScene Container
+    public static final int X_CONTAINER = WINDOW_WIDTH / 2;
+    public static final int Y_CONTAINER = WINDOW_HEIGHT / 2;
+    public static final int BUTTON_WIDTH = 32;
+    public static final int BUTTON_HEIGHT = 32;
+    public static final int SPACE_BETWEEN_BUTTONS_HORIZONTAL = 16;
+    public static final int SPACE_BETWEEN_BUTTONS_VERTICAL = 16;
 }

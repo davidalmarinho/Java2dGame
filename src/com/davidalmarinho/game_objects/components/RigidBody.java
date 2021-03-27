@@ -157,4 +157,9 @@ public class RigidBody extends Component {
         // So far so good, we are not colliding
         return true;
     }
+
+    @Override
+    public Component copy() {
+        return new RigidBody(this.velocity.copy());
+    }
 }

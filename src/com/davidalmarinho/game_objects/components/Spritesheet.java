@@ -19,4 +19,8 @@ public class Spritesheet extends Component {
             }
         }
     }
+
+    public Component copy() {
+        return null;
+    }
 }

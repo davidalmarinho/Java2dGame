@@ -7,4 +7,8 @@ public class BoxBounds extends Component {
         this.width = width;
         this.height = height;
     }
+
+    public Component copy() {
+        return new BoxBounds(this.width, this.height);
+    }
 }
