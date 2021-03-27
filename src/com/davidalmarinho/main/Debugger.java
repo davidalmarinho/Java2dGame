@@ -8,6 +8,7 @@ public class Debugger {
     public static Debugger instance;
     private int fps;
     public boolean debugging;
+    private int countGameObjects;
 
     private Debugger() {
         debugging = false;
@@ -17,14 +18,24 @@ public class Debugger {
         if (!debugging) return;
 
         fps = (int) (1.0 / dt);
+
+        countGameObjects();
     }
 
     public void draw(Graphics g) {
         if (!debugging) return;
 
-        g.setColor(new Color(255, 255, 255));
+        g.setColor(new Color(125, 125, 125));
         g.setFont(new Font("arial", Font.BOLD, 16));
         g.drawString("FPS: " + fps, 16, 32);
+        g.drawString("GO: " + countGameObjects, 16, 64);
+    }
+
+    private void countGameObjects() {
+        countGameObjects = 0;
+        for (int i = 0; i < GameManager.getInstance().getCurrentScene().gameObjects.size(); i++) {
+            countGameObjects = i;
+        }
     }
 
     // We want just a Debugger

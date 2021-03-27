@@ -14,4 +14,8 @@ public class Transform {
         this.scale = new Vector2(Constants.GAME_SCALE, Constants.GAME_SCALE);
         this.rotation = .0f;
     }
+
+    public Transform copy() {
+        return new Transform(this.position.copy());
+    }
 }

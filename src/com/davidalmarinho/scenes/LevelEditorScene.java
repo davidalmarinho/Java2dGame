@@ -5,6 +5,7 @@ import com.davidalmarinho.game_objects.GameObject;
 import com.davidalmarinho.game_objects.components.CameraControllers;
 import com.davidalmarinho.game_objects.components.Grid;
 import com.davidalmarinho.game_objects.components.SnapToGrid;
+import com.davidalmarinho.game_objects.components.Spritesheet;
 import com.davidalmarinho.utils.Constants;
 import com.davidalmarinho.utils.Vector2;
 
@@ -12,12 +13,14 @@ import java.awt.Graphics2D;
 import java.awt.Color;
 
 public class LevelEditorScene extends Scene {
+    public Spritesheet editorSpritesheet;
     CameraControllers cameraControllers;
     GameObject mouse;
     Grid grid;
 
     @Override
     public void init() {
+        this.editorSpritesheet = new Spritesheet("assets/spritesheet.png", 4, 6, 16, 16);
         grid = new Grid();
 
         Constants.WORLD_WIDTH = 20 * 64;

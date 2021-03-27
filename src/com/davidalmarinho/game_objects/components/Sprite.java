@@ -25,9 +25,12 @@ public class Sprite extends Component {
         this.image = image;
     }
 
+    public Component copy() {
+        return new Sprite(this.image);
+    }
+
     @Override
     public void render(Graphics2D g2) {
-        /*g2.drawImage(image, gameObject.transform.position.x, gameObject.transform.position.y,
-                width, height, null);*/
+        drawQuick(g2, this);
     }
 }

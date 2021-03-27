@@ -45,6 +45,10 @@ public class GameObject {
     public static Comparator<GameObject> gameObjectSorter =
             Comparator.comparingInt(gameObject -> gameObject.depth);
 
+    public GameObject copy() {
+        return new GameObject(this.name, this.transform.copy());
+    }
+
     public void update(float dt) {
         for (Component c : components) {
             c.update(dt);

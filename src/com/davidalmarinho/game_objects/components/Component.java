@@ -18,7 +18,7 @@ public abstract class Component {
     }
 
     protected void drawQuick(Graphics2D g2, Sprite sprite) {
-        Vector2 position = gameObject.transform.position;
+        Vector2 position = gameObject.transform.position.copy();
         AffineTransform transform = new AffineTransform();
         transform.setToIdentity();
         transform.translate(position.x, position.y);

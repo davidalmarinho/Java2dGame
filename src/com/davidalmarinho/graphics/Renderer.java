@@ -34,7 +34,7 @@ public class Renderer {
         gameObjects.sort(GameObject.gameObjectSorter);
         for (GameObject gameObject : gameObjects) {
             // We will keep the real position of the gameObjects
-            Vector2 realGameObjectPosition = gameObject.transform.position;
+            Vector2 realGameObjectPosition = gameObject.transform.position.copy();
 
             // GameObject with the camera rendering
             gameObject.transform.position = new Vector2(gameObject.transform.position.x - camera.position.x,
