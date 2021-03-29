@@ -32,28 +32,35 @@ public abstract class Engine implements Runnable {
 
     @Override
     public void run() {
-        float lastTime = .0f;
-        float unprocessedTime = 0.0f;
-        float updateCap = 1.0f / 120.0f;
+        float limitTickRatePerSecond = 120.0f;
+        float maxFpsPerSecond = 1.0f / limitTickRatePerSecond;
 
-        try {
-            while (running) {
-                float currentTime = Time.getTime();
-                float delta = (currentTime - lastTime);
-                lastTime = currentTime;
+        float lastTime = Time.getTime();
 
-                unprocessedTime += delta;
+        float realTimePC = .0f;
 
-                while (unprocessedTime >= updateCap) {
-                    unprocessedTime -= delta;
-                    update(unprocessedTime);
-                    render();
-                }
+        while (running) {
+            float currentTime = Time.getTime();
+            float frameTime = currentTime - lastTime;
+            lastTime = currentTime;
+
+
+            // We want real time to after limit update's time
+            realTimePC += frameTime;
+
+            // Breaker of counts
+            if (frameTime < maxFpsPerSecond) {
+                frameTime = maxFpsPerSecond;
             }
-            stop();
-        } catch (Exception e) {
-            System.out.println("Error: GameLooping crashed");
-            e.printStackTrace();
+
+            // Limit time fps
+            if (realTimePC >= maxFpsPerSecond) {
+                update(frameTime);
+                realTimePC -= maxFpsPerSecond;
+            }
+
+            render();
         }
+        stop();
     }
 }

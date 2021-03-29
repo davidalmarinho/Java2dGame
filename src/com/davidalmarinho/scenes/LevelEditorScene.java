@@ -48,7 +48,7 @@ public class LevelEditorScene extends Scene {
 
     @Override
     public void render(Graphics2D g2) {
-        g2.setColor(Color.WHITE);
+        g2.setColor(Color.BLACK);
         g2.fillRect(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
 
         renderer.draw(g2);

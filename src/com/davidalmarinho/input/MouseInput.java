@@ -52,6 +52,7 @@ public class MouseInput extends MouseAdapter {
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
         isDragging = false;
+        updateMousePositions(mouseEvent);
         mousePosition.x = mouseEvent.getX() / Constants.WINDOW_SCALE_X;
         mousePosition.y = mouseEvent.getY() / Constants.WINDOW_SCALE_Y;
     }
@@ -59,8 +60,14 @@ public class MouseInput extends MouseAdapter {
     @Override
     public void mouseDragged(MouseEvent mouseEvent) {
         isDragging = true;
+        updateMousePositions(mouseEvent);
         mouseDragPosition.x = mouseEvent.getX() / Constants.WINDOW_SCALE_X - mousePosition.x;
         mouseDragPosition.y = mouseEvent.getY() / Constants.WINDOW_SCALE_Y - mousePosition.y;
+    }
+
+    private void updateMousePositions(MouseEvent e) {
+        mousePosition.x = e.getX() / Constants.WINDOW_SCALE_X;
+        mousePosition.y = e.getY() / Constants.WINDOW_SCALE_Y;
     }
 
     public static MouseInput getInstance() {
