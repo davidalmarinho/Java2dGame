@@ -1,4 +1,4 @@
-# Java2DGame project (by me :D)
+# Java2DGame project
 
 Hello, this is my first Open-Source Game, like I said before :D 
 Here, I am doing a 2D Java Game where I am putting all my skills. 
@@ -28,7 +28,7 @@ This is why I recommend this extension.
 
 ---
 
-#### *Thank you!*
+### *Thank you!*
 
 I just want to thank you due to giving me a chance to my project!
 
