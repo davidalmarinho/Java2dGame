@@ -1,6 +1,7 @@
 package com.davidalmarinho.scenes;
 
 import com.davidalmarinho.game_objects.GameObject;
+import com.davidalmarinho.game_objects.components.Spritesheet;
 import com.davidalmarinho.graphics.Renderer;
 import com.davidalmarinho.main.Camera;
 

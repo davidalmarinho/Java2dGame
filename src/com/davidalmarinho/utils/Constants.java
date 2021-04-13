@@ -1,5 +1,12 @@
 package com.davidalmarinho.utils;
 
+import com.davidalmarinho.data_structures.Transform;
+import com.davidalmarinho.game_objects.GameObject;
+import com.davidalmarinho.game_objects.components.BoxBounds;
+import com.davidalmarinho.game_objects.components.Floor;
+import com.davidalmarinho.game_objects.components.Sprite;
+import com.davidalmarinho.game_objects.components.Wall;
+
 public class Constants {
     // Game/Screen
     public static final int WINDOW_WIDTH = 800;
@@ -23,4 +30,28 @@ public class Constants {
     public static final int BUTTON_HEIGHT = 32;
     public static final int SPACE_BETWEEN_BUTTONS_HORIZONTAL = 16;
     public static final int SPACE_BETWEEN_BUTTONS_VERTICAL = 16;
+
+    /**
+     * To generate a Wall with all the configuration which it needs
+     * @param position Wall's coordinates
+     * @param sprite Wall's sprite
+     * @return Will return a new Wall
+     */
+    public static GameObject createWall(Vector2 position, Sprite sprite) {
+        GameObject gameObject = new GameObject("Wall", new Transform(position));
+        Wall wallComp = new Wall();
+        gameObject.addComponent(sprite);
+        gameObject.addComponent(wallComp);
+        BoxBounds boxBounds = new BoxBounds(Constants.TILE_SIZE, Constants.TILE_SIZE);
+        gameObject.addComponent(boxBounds);
+        return gameObject;
+    }
+
+    public static GameObject createFloor(Vector2 position, Sprite sprite) {
+        GameObject gameObject = new GameObject("Grass", new Transform(position));
+        gameObject.addComponent(sprite);
+        Floor floorComp = new Floor();
+        gameObject.addComponent(floorComp);
+        return gameObject;
+    }
 }

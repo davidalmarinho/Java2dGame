@@ -6,7 +6,9 @@ import com.davidalmarinho.game_objects.components.CameraControllers;
 import com.davidalmarinho.game_objects.components.Grid;
 import com.davidalmarinho.game_objects.components.SnapToGrid;
 import com.davidalmarinho.game_objects.components.Spritesheet;
+import com.davidalmarinho.ui.ItemsTypes;
 import com.davidalmarinho.ui.Container;
+import com.davidalmarinho.ui.MainContainer;
 import com.davidalmarinho.utils.Constants;
 import com.davidalmarinho.utils.Vector2;
 
@@ -18,12 +20,16 @@ public class LevelEditorScene extends Scene {
     CameraControllers cameraControllers;
     public GameObject mouse;
     Grid grid;
-    Container container;
+    MainContainer mainContainer = new MainContainer();
 
     @Override
     public void init() {
         this.editorSpritesheet = new Spritesheet("assets/spritesheet.png", 4, 6, 16, 16);
-        this.container = new Container(12, 4, 4);
+        mainContainer.append(new Container(editorSpritesheet, ItemsTypes.FLOOR, 12,
+                new Vector2(Constants.X_CONTAINER, Constants.Y_CONTAINER), 4, 4));
+        mainContainer.append(new Container(editorSpritesheet, ItemsTypes.WALL, 18,
+                new Vector2(20, 20), 3, 6));
+
         grid = new Grid();
 
         Constants.WORLD_WIDTH = 20 * Constants.TILE_SIZE;
@@ -33,17 +39,15 @@ public class LevelEditorScene extends Scene {
         cameraControllers = new CameraControllers();
         mouse.addComponent(new SnapToGrid(Constants.TILE_SIZE, Constants.TILE_SIZE));
         mouse.addComponent(cameraControllers);
+        //mouse.addComponent(mainContainer);
     }
 
     @Override
     public void update(float dt) {
         updateGameObjects(dt);
-
         grid.update(dt);
-        if (!container.isSelectingItems()) {
-            mouse.update(dt);
-        }
-        container.update(dt);
+        mouse.update(dt);
+        mainContainer.update(dt);
     }
 
     @Override
@@ -52,10 +56,8 @@ public class LevelEditorScene extends Scene {
         g2.fillRect(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
 
         renderer.draw(g2);
-        if (!container.isSelectingItems()) {
-            mouse.render(g2);
-        }
         grid.render(g2);
-        container.render(g2);
+        mouse.render(g2);
+        mainContainer.render(g2);
     }
 }

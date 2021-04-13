@@ -1,10 +1,9 @@
 package com.davidalmarinho.ui;
 
+import com.davidalmarinho.data_structures.AssetPool;
 import com.davidalmarinho.data_structures.Transform;
 import com.davidalmarinho.game_objects.GameObject;
-import com.davidalmarinho.game_objects.components.Component;
-import com.davidalmarinho.game_objects.components.SnapToGrid;
-import com.davidalmarinho.game_objects.components.Sprite;
+import com.davidalmarinho.game_objects.components.*;
 import com.davidalmarinho.input.MouseInput;
 import com.davidalmarinho.main.GameManager;
 import com.davidalmarinho.scenes.LevelEditorScene;
@@ -16,11 +15,13 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 
 public class Button extends Component {
+    private final ItemsTypes buttonType;
     private final Vector2 position;
     private final Sprite sprite;
     public boolean selected;
 
-    public Button(Sprite sprite, Vector2 position) {
+    public Button(ItemsTypes buttonType, Sprite sprite, Vector2 position) {
+        this.buttonType = buttonType;
         this.position = position;
         this.sprite = sprite;
     }
@@ -40,6 +41,16 @@ public class Button extends Component {
             gameObject.addComponent(((LevelEditorScene) GameManager.getInstance().getCurrentScene())
                     .mouse.getComponent(SnapToGrid.class));
             gameObject.addComponent(sprite);
+
+            LevelEditorScene levelScene = (LevelEditorScene) GameManager.getInstance().getCurrentScene();
+            if (buttonType == ItemsTypes.WALL) {
+                gameObject = Constants.createWall(position.copy(),
+                        levelScene.editorSpritesheet.sprites.get(3));
+
+            } else if (buttonType == ItemsTypes.FLOOR) {
+                gameObject = Constants.createFloor(position.copy(),
+                        levelScene.editorSpritesheet.sprites.get(2));
+            }
             this.gameObject = gameObject.copy();
             selected = true;
         }
@@ -56,6 +67,6 @@ public class Button extends Component {
 
     @Override
     public Component copy() {
-        return new Button(this.sprite, this.position.copy());
+        return new Button(this.buttonType, this.sprite, this.position.copy());
     }
 }

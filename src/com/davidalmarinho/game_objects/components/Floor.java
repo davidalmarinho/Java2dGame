@@ -1,19 +1,24 @@
 package com.davidalmarinho.game_objects.components;
 
+import com.davidalmarinho.utils.ErrorFrame;
+
 import java.awt.Graphics2D;
 
 public class Floor extends Component {
-    private final Sprite sprite;
+    public Floor() {
 
-    public Floor(Sprite sprite) {
-        this.sprite = sprite;
     }
 
     public void render(Graphics2D g2) {
-        drawQuick(g2, sprite);
+        Sprite sprite = gameObject.getComponent(Sprite.class);
+        if (sprite != null) {
+            drawQuick(g2, sprite);
+        } else {
+            new ErrorFrame("Didn't find a wall sprite");
+        }
     }
 
     public Component copy() {
-        return new Floor(this.sprite);
+        return new Floor();
     }
 }

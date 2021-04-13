@@ -2,15 +2,12 @@ package com.davidalmarinho.game_objects.components;
 
 import com.davidalmarinho.game_objects.GameObject;
 import com.davidalmarinho.main.GameManager;
-import com.davidalmarinho.input.KeyboardInput;
 import com.davidalmarinho.utils.Constants;
 import com.davidalmarinho.utils.Vector2;
 
-import java.awt.event.KeyEvent;
-
 public class RigidBody extends Component {
     public Vector2 velocity;
-    private boolean jumping;
+    protected boolean jumping;
     private float jump;
 
     public RigidBody(Vector2 velocity) {
@@ -45,44 +42,6 @@ public class RigidBody extends Component {
                 jumping = false;
             }
         }*/
-
-        // If player component as been found, we will move the game object Player
-        if (gameObject.getComponent(Player.class) != null) {
-            controlPlayer(dt);
-        }
-    }
-
-    private void controlPlayer(float dt) {
-        KeyboardInput keyboardInput = GameManager.getInstance().getKeyboardInput();
-        Vector2 playerCoordinates = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y);
-
-        for (float speed = velocity.x * dt; speed >= 0; speed -= 1.0f) {
-            if (keyboardInput.isKey(KeyEvent.VK_D)
-                    && isFree(Wall.class, playerCoordinates.x + speed, playerCoordinates.y)) {
-                // Moves a certain number of pixels (velocity.x, velocity.y) per second
-                playerCoordinates.x += speed;
-            } else if (keyboardInput.isKey(KeyEvent.VK_A)
-                    && isFree(Wall.class, playerCoordinates.x - speed, playerCoordinates.y)) {
-                playerCoordinates.x -= speed;
-            }
-        }
-
-        if (keyboardInput.isKeyDown(KeyEvent.VK_SPACE)
-                && !isFree(Wall.class, playerCoordinates.x, playerCoordinates.y + 2)) {
-            jumping = true;
-        }
-
-        for (float speed = velocity.y * dt; speed >= 0; speed -= 1.0f) {
-            if (keyboardInput.isKey(KeyEvent.VK_W) && isFree(Wall.class,
-                    playerCoordinates.x, playerCoordinates.y - speed)) {
-                playerCoordinates.y -= speed;
-            } else if (keyboardInput.isKey(KeyEvent.VK_S) && isFree(Wall.class,
-                    playerCoordinates.x, playerCoordinates.y + speed)) {
-                playerCoordinates.y += speed;
-            }
-        }
-
-        gameObject.transform.position = playerCoordinates;
     }
 
     /**
@@ -112,7 +71,7 @@ public class RigidBody extends Component {
      * @param yNext The next y's gameObject position
      * @return A solid collision between these 2 gameObjects
      */
-    private <T extends Component> boolean isFree(Class<T> component, float xNext, float yNext) {
+    public  <T extends Component> boolean isFree(Class<T> component, float xNext, float yNext) {
         for (GameObject currentGameObject : GameManager.getInstance().getCurrentScene().gameObjects) {
             if (currentGameObject.getComponent(component) != null) {
                 // GameObject's sizes

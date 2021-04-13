@@ -82,16 +82,13 @@ public class Level {
 
                     // Place buildings, ground...
                 } else if (currentPixel == MapColors.WALL_COLOR.getColor()) {
-                    gameObject = new GameObject("Wall", new Transform(currentWorldCoordinates.copy()));
-                    Wall wallComp = new Wall(levelScene.getSpritesheet().sprites.get(3));
-                    gameObject.addComponent(wallComp);
-                    BoxBounds boxBounds = new BoxBounds(Constants.TILE_SIZE, Constants.TILE_SIZE);
-                    gameObject.addComponent(boxBounds);
+                    gameObject = Constants.createWall(currentWorldCoordinates.copy(),
+                            levelScene.getSpritesheet().sprites.get(3));
                     gameObjects.add(gameObject);
+
                 } else if (currentPixel == MapColors.FLOOR_COLOR.getColor()) {
-                    gameObject = new GameObject("Grass", new Transform(currentWorldCoordinates.copy()));
-                    Floor floorComp = new Floor(levelScene.getSpritesheet().sprites.get(2));
-                    gameObject.addComponent(floorComp);
+                    gameObject = Constants.createFloor(currentWorldCoordinates.copy(),
+                            levelScene.getSpritesheet().sprites.get(2));
                     gameObjects.add(gameObject);
                 }
 
@@ -102,7 +99,9 @@ public class Level {
                  */
                 if (gameObject != null && gameObject.getComponent(Floor.class) == null
                         && gameObject.getComponent(Wall.class) == null) {
-                    placeFloorInEmptyPlaces(gameObjects, currentWorldCoordinates.copy());
+                    GameObject gameObjectToBlankSpaces = Constants.createFloor(currentWorldCoordinates.copy(),
+                            levelScene.getSpritesheet().sprites.get(2));
+                    gameObjects.add(gameObjectToBlankSpaces);
                 }
             }
         }
@@ -111,14 +110,6 @@ public class Level {
         for (GameObject gameObject : gameObjects) {
             GameManager.getInstance().getCurrentScene().addGameObject(gameObject);
         }
-    }
-
-    private void placeFloorInEmptyPlaces(List<GameObject> gameObjects, Vector2 worldCoordinates) {
-        GameObject grass = new GameObject("Grass", new Transform(worldCoordinates));
-        Floor floorComp = new Floor(((LevelScene) GameManager.getInstance().getCurrentScene()).
-                getSpritesheet().sprites.get(2));
-        grass.addComponent(floorComp);
-        gameObjects.add(grass);
     }
 
     /*@Override

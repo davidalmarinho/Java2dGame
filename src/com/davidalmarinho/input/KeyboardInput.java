@@ -23,11 +23,17 @@ public class KeyboardInput extends KeyAdapter {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() > numberOfKeys) {
+            return;
+        }
         keys[e.getKeyCode()] = true;
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
+        if (e.getKeyCode() > numberOfKeys) {
+            return;
+        }
         keys[e.getKeyCode()] = false;
     }
 
@@ -41,9 +47,9 @@ public class KeyboardInput extends KeyAdapter {
 
     // Do just an action when we press it
     public boolean isKeyDown(int keyCode) {
-        /*if (keyCode > numberOfKeys) {
+        if (keyCode > numberOfKeys) {
             return false;
-        }*/
+        }
         return keys[keyCode] && !lastKeys[keyCode];
     }
 
