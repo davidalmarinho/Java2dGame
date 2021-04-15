@@ -49,7 +49,8 @@ public class GameManager extends Engine {
      */
     @Override
     public void init() {
-        changeScene(Scenes.LEVEL_EDITOR_SCENE);
+        changeScene(Scenes.LEVEL_SCENE);
+        window.requestFocus();
     }
 
     public void changeScene(Scenes scene) {

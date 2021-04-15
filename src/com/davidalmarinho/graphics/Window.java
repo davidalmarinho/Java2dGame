@@ -34,7 +34,6 @@ public class Window extends Canvas {
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.setVisible(true);
         // It will prioritize the Game's window when created
-        requestFocus();
     }
 
     public static Window getInstance(MouseInput mouseInput) {

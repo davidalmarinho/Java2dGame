@@ -7,6 +7,7 @@ import java.awt.Graphics;
 public class Debugger {
     public static Debugger instance;
     private int fps;
+    private float timer;
     public boolean debugging;
     private int countGameObjects;
 
@@ -16,8 +17,12 @@ public class Debugger {
 
     public void update(float dt) {
         if (!debugging) return;
+        timer += dt;
 
-        fps = (int) (1.0 / dt);
+        if (timer >= 0.03) {
+            fps = (int) (1.0 / dt);
+            timer = .0f;
+        }
 
         countGameObjects();
     }

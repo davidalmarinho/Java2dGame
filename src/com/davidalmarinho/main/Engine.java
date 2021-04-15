@@ -32,11 +32,69 @@ public abstract class Engine implements Runnable {
 
     @Override
     public void run() {
+        gameLoop2();
+    }
+
+    /**
+     * Based on Minecraft's Markus Persson (Notch) game loop
+     */
+    private void gameLoop1() {
+        long lastRenderTime = System.nanoTime();
+        // Limit fps that we can reach in the game
+        double maxFps = 200.0;
+        // Convert maxFps variable number to nano
+        final float TIME_BETWEEN_RENDERS = (float) (1E9 / maxFps);
+        float pcTime = .0f;
+        // Show fps in terminal
+        double lastTimeFPS = System.currentTimeMillis();
+        int fps = 0;
+
+        while (running) {
+            long curTime = System.nanoTime();
+
+            float delta = curTime - lastRenderTime;
+
+            float convertedDelta = delta / TIME_BETWEEN_RENDERS;
+
+            pcTime += convertedDelta;
+            lastRenderTime = curTime;
+
+            if (pcTime >= 1) {
+                // Convert delta to seconds
+                float deltaInSeconds = delta;
+                if (deltaInSeconds < TIME_BETWEEN_RENDERS) {
+                    deltaInSeconds = (float) (TIME_BETWEEN_RENDERS * 1E-9);
+                } else {
+                    deltaInSeconds = (float) (deltaInSeconds * 1E-9);
+                }
+
+                update(deltaInSeconds);
+                fps++;
+                pcTime--;
+            }
+            render();
+
+            // Show fps in terminal
+            /*if (System.currentTimeMillis() - lastTimeFPS >= 1000) {
+                System.out.println(fps);
+                fps = 0;
+                lastTimeFPS += 1000;
+            }*/
+        }
+        stop();
+    }
+
+    /**
+     * My game loop :D
+     */
+    private void gameLoop2() {
+        // Set limits
         float limitTickRatePerSecond = 120.0f;
         float maxFpsPerSecond = 1.0f / limitTickRatePerSecond;
 
         float lastTime = Time.getTime();
 
+        // Will keep all the laps of time
         float realTimePC = .0f;
 
         while (running) {
@@ -44,18 +102,18 @@ public abstract class Engine implements Runnable {
             float frameTime = currentTime - lastTime;
             lastTime = currentTime;
 
-
             // We want real time to after limit update's time
             realTimePC += frameTime;
 
-            // Breaker of counts
-            if (frameTime < maxFpsPerSecond) {
-                frameTime = maxFpsPerSecond;
-            }
-
             // Limit time fps
             if (realTimePC >= maxFpsPerSecond) {
+                // Breaker of counts
+                if (frameTime <= maxFpsPerSecond) {
+                    frameTime = maxFpsPerSecond;
+                }
                 update(frameTime);
+
+                // Make the game sleeps
                 realTimePC -= maxFpsPerSecond;
             }
 
