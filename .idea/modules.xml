@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Java2dGame.iml" filepath="$PROJECT_DIR$/Java2dGame.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Java2dGame.iml" filepath="$PROJECT_DIR$/.idea/modules/Java2dGame.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/android/Java2dGame.android.iml" filepath="$PROJECT_DIR$/.idea/modules/android/Java2dGame.android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/Java2dGame.core.iml" filepath="$PROJECT_DIR$/.idea/modules/core/Java2dGame.core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/desktop/Java2dGame.desktop.iml" filepath="$PROJECT_DIR$/.idea/modules/desktop/Java2dGame.desktop.iml" />
     </modules>
   </component>
 </project>
