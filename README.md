@@ -18,7 +18,7 @@ This is why I recommend this extension.
 
 ---
 
-### *How to run it?*
+### *How to run it?* (NOT WORKING THIS RUNNING METHOD)
 
 - [Windows](#windows)
 
