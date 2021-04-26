@@ -7,6 +7,7 @@ import java.awt.Graphics;
 public class Debugger {
     public static Debugger instance;
     private int fps;
+    private float timer;
     public boolean debugging;
     private int countGameObjects;
 
@@ -16,8 +17,16 @@ public class Debugger {
 
     public void update(float dt) {
         if (!debugging) return;
+        timer += dt;
 
+<<<<<<< HEAD:core/src/com/davidalmarinho/java2dgame/main/Debugger.java
         fps = (int) (1.0f / dt);
+=======
+        if (timer >= 0.03) {
+            fps = (int) (1.0 / dt);
+            timer = .0f;
+        }
+>>>>>>> 9278d5149ed38a16740aade36fe01b1044f0381c:src/com/davidalmarinho/main/Debugger.java
 
         countGameObjects();
     }
