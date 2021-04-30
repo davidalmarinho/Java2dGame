@@ -1,7 +1,8 @@
 package com.davidalmarinho.java2dgame.scenes;
 
-
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.davidalmarinho.java2dgame.data_structures.Transform;
 import com.davidalmarinho.java2dgame.game_objects.GameObject;
@@ -18,7 +19,6 @@ public class LevelScene extends Scene {
    public Spritesheet spritesheet;
    private Levels levels;
    int level = 0;
-   public GameObject player;
    private float parseLevelFpsTest;
    private boolean firstTimeParseLevelTest = true;
 
@@ -26,13 +26,13 @@ public class LevelScene extends Scene {
     public void init() {
         this.spritesheet = new Spritesheet("spritesheet.png", 4, 6,
                 16, 16);
-        player = new GameObject("Player", new Transform(new Vector2(200, 200)));
+        /*player = new GameObject("Player", new Transform(new Vector2(200, 200)));
         Player playerComp = new Player(spritesheet.getSprites().get(8));
         player.addComponent(playerComp);
         player.addComponent(new RigidBody(new Vector2(200.0f, 200.0f)));
         player.addComponent(new BoxBounds(Constants.TILE_SIZE, Constants.TILE_SIZE));
-        player.depth = 2;
-        addGameObject(player);
+        player.depth = 1;
+        addGameObject(player);*/
         initLevel();
     }
 
@@ -44,26 +44,25 @@ public class LevelScene extends Scene {
     @Override
     public void update(float dt) {
         updateGameObjects(dt);
-        camera.lock(player);
+
+        // Lock camera in Player
+        for (GameObject player : gameObjects) {
+            if (player.getComponent(Player.class) != null) {
+                lockCamera(player);
+                /*player.transform.position.x += 100.0f * dt;
+                player.transform.position.y -= 40.0f * dt;*/
+            }
+        }
+
+        // System.out.println("FPS: " + 1.0f / dt);
         // Just to check if the levels management is going well (3 seconds and it switches to the 2nd level
-        /*parseLevelFpsTest += dt;
+        parseLevelFpsTest += dt;
         if (parseLevelFpsTest >= 3.0 && firstTimeParseLevelTest) {
             level++;
             Levels.getInstance("assets/levels").levels.get(level).init();
             parseLevelFpsTest = 0;
             firstTimeParseLevelTest = false;
-        }*/
-    }
-
-    private void test() {
-        // setScreen();
-        //new ErrorFrame("Error test");
-        // spritesheet = new Texture("assets/spritesheet.png");
-        levels = Levels.getInstance("assets/levels/");
-
-        // Creating a spritesheet with the same location of the spritesheet above to check if AssetPool is working fine
-        // new Spritesheet("assets/spritesheet.png", 4, 6, 16, 16);
-        Levels.getInstance("assets/levels").levels.get(level).init();
+        }
     }
 
     @Override
@@ -77,12 +76,6 @@ public class LevelScene extends Scene {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         renderer.draw(GameManager.getInstance().getBatch());
-
-        /*SpriteBatch batch = gameManager.getBatch();
-        batch.begin();
-        batch.draw(spritesheet.sprites.get(0), 0, 0,
-                Constants.TILE_SIZE, Constants.TILE_SIZE);
-        batch.end();*/
     }
 
     @Override

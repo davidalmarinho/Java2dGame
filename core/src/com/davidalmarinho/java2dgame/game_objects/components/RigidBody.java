@@ -2,6 +2,7 @@ package com.davidalmarinho.java2dgame.game_objects.components;
 
 import com.davidalmarinho.java2dgame.game_objects.GameObject;
 import com.davidalmarinho.java2dgame.main.GameManager;
+import com.davidalmarinho.java2dgame.utils.Constants;
 import com.davidalmarinho.java2dgame.utils.Vector2;
 
 public class RigidBody extends Component {
@@ -51,14 +52,14 @@ public class RigidBody extends Component {
      * @return A solid collision between these 2 gameObjects
      */
     public  <T extends Component> boolean isFree(Class<T> component, float xNext, float yNext) {
-        //for (GameObject currentGameObject : GameManager.getInstance().getCurrentScene().gameObjects) {
-            /*if (currentGameObject.getComponent(component) != null) {
+        for (GameObject currentGameObject : GameManager.getInstance().getCurrentScene().gameObjects) {
+            if (currentGameObject.getComponent(component) != null) {
                 // GameObject's sizes
                 BoxBounds boxBounds = gameObject.getComponent(BoxBounds.class);
                 int width = boxBounds.width;
                 int height = boxBounds.height;
 
-                *//* Requirements for loop:
+                /* Requirements for loop:
                  *
                  *      Pick these positions
                  *      ↓                ↓
@@ -70,7 +71,7 @@ public class RigidBody extends Component {
                  *      |________________|
                  *      ↑                ↑
                  *    And these positions too
-                 *//*
+                 */
                 int startX = (int) (xNext / Constants.TILE_SIZE);
                 int startY = (int) (yNext / Constants.TILE_SIZE);
                 int finalX = (int) Math.ceil(xNext + width - 1) / Constants.TILE_SIZE;
@@ -90,7 +91,7 @@ public class RigidBody extends Component {
                     }
                 }
             }
-        }*/
+        }
 
         // So far so good, we are not colliding
         return true;

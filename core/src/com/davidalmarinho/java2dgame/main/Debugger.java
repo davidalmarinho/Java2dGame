@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
+// TODO: 30/04/2021 Needs to be restored
 public class Debugger {
     public static Debugger instance;
     private int fps;
@@ -19,16 +20,13 @@ public class Debugger {
         if (!debugging) return;
         timer += dt;
 
-<<<<<<< HEAD:core/src/com/davidalmarinho/java2dgame/main/Debugger.java
-        fps = (int) (1.0f / dt);
-=======
         if (timer >= 0.03) {
             fps = (int) (1.0 / dt);
             timer = .0f;
         }
->>>>>>> 9278d5149ed38a16740aade36fe01b1044f0381c:src/com/davidalmarinho/main/Debugger.java
 
         countGameObjects();
+        System.out.println(countGameObjects);
     }
 
     public void draw(Graphics g) {
@@ -42,9 +40,9 @@ public class Debugger {
 
     private void countGameObjects() {
         countGameObjects = 0;
-        /*while (countGameObjects < GameManager.getInstance().getCurrentScene().gameObjects.size()) {
+        while (countGameObjects < GameManager.getInstance().getCurrentScene().gameObjects.size()) {
             countGameObjects++;
-        }*/
+        }
     }
 
     // We want just a Debugger

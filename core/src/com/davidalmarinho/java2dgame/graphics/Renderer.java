@@ -1,7 +1,11 @@
 package com.davidalmarinho.java2dgame.graphics;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.davidalmarinho.java2dgame.game_objects.GameObject;
+import com.davidalmarinho.java2dgame.game_objects.components.Floor;
+import com.davidalmarinho.java2dgame.game_objects.components.Wall;
+import com.davidalmarinho.java2dgame.main.GameManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,23 +31,6 @@ public class Renderer {
         gameObjects.clear();
     }
 
-    /*public void draw(Graphics2D g2) {
-        // Organising the rendering order of the gameObjects
-        gameObjects.sort(GameObject.gameObjectSorter);
-        for (GameObject gameObject : gameObjects) {
-            // We will keep the real position of the gameObjects
-            Vector2 realGameObjectPosition = gameObject.transform.position.copy();
-
-            // GameObject with the camera rendering
-            gameObject.transform.position = new Vector2(gameObject.transform.position.x - camera.position.x,
-                    gameObject.transform.position.y - camera.position.y);
-            gameObject.render(g2);
-
-            // Replace the gameObject's position with its real position
-            gameObject.transform.position = realGameObjectPosition;
-        }
-    }*/
-
     public void draw(SpriteBatch batch) {
         if (batch == null) return;
 
@@ -58,22 +45,25 @@ public class Renderer {
         int index = 0;  // To have control on the "memory"
         int highestDepth = Integer.MIN_VALUE;
         int control = 0;
+
         while (true) {
             GameObject gameObject = gameObjects.get(control).copy();
 
             // Keep highest depth
-            if (highestDepth < gameObject.depth) {
-                highestDepth = gameObject.depth;
+            for (GameObject go : gameObjects) {
+                if (highestDepth < go.depth) {
+                    highestDepth = go.depth;
+                }
             }
 
             // Depth values found, so let's put game objects to the rendering array (buffer)
             if (depth == gameObject.depth) {
-                buffer[index] = gameObject;
+                buffer[index] = gameObject.copy();
                 index++;
             }
 
             // No more depth value have to be checked
-            if (depth >= highestDepth) {
+            if (depth > highestDepth) {
                 break;
             }
 
@@ -87,9 +77,27 @@ public class Renderer {
                 depth++;
             }
         }
+        OrthographicCamera camera = GameManager.getInstance().getCurrentScene().getCamera();
 
+        // Update camera's matrices before starting rendering process
+        camera.update();
+
+        // Tell how and where we will render the images on our screen
+        batch.setProjectionMatrix(camera.combined);
+
+        // Let's render!
         batch.begin();
         for (GameObject gameObject : buffer) {
+            if (gameObject == null) {
+                System.out.println("Error: Some game object cannot be rendered because " +
+                        "are null in '" + getClass() + "':");
+                for (int indexOfNull = 0; indexOfNull <= buffer.length; indexOfNull++) {
+                    if (buffer[indexOfNull] == null) {
+                        System.out.println("Null game object on "+ indexOfNull + " index");
+                    }
+                }
+                System.exit(-1);
+            }
             gameObject.render(batch);
         }
         batch.end();

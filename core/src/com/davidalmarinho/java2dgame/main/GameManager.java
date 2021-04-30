@@ -20,7 +20,6 @@ public class GameManager extends Game {
     private float time;
 
     // Using Singleton
-
     private GameManager() {
         debugger = Debugger.getInstance();
     }

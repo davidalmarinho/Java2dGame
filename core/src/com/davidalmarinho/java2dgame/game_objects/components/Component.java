@@ -34,10 +34,8 @@ public abstract class Component {
         transform.scale(gameObject.transform.scale.x, gameObject.transform.scale.y);*/
         //g2.drawImage(sprite.image, transform, null);
         batch.draw(sprite.image,
-                gameObject.transform.position.x -
-                        GameManager.getInstance().getCurrentScene().getCamera().position.x,
-                gameObject.transform.position.y -
-                        GameManager.getInstance().getCurrentScene().getCamera().position.y,
+                gameObject.transform.position.x,
+                gameObject.transform.position.y,
                 gameObject.transform.scale.x * 16,
                 gameObject.transform.scale.y * 16);
     }
