@@ -32,10 +32,10 @@ public class Player extends Component {
             if (Gdx.input.isKeyPressed(Input.Keys.D)
                     && rigidBody.isFree(Wall.class, playerCoordinates.x + speed, playerCoordinates.y)) {
                 // Moves a certain number of pixels (velocity.x, velocity.y) per second
-                playerCoordinates.x += speed;
+                playerCoordinates.x += (int) speed;
             } else if (Gdx.input.isKeyPressed(Input.Keys.A)
                     && rigidBody.isFree(Wall.class, playerCoordinates.x - speed, playerCoordinates.y)) {
-                playerCoordinates.x -= speed;
+                playerCoordinates.x -= (int) speed;
             }
         }
 
@@ -47,10 +47,10 @@ public class Player extends Component {
         for (float speed = velocity.y * dt; speed >= 0; speed -= 1.0f) {
             if (Gdx.input.isKeyPressed(Input.Keys.S) && rigidBody.isFree(Wall.class,
                     playerCoordinates.x, playerCoordinates.y - speed)) {
-                playerCoordinates.y -= speed;
+                playerCoordinates.y -= (int) speed;
             } else if (Gdx.input.isKeyPressed(Input.Keys.W) && rigidBody.isFree(Wall.class,
                     playerCoordinates.x, playerCoordinates.y + speed)) {
-                playerCoordinates.y += speed;
+                playerCoordinates.y += (int) speed;
             }
         }
 

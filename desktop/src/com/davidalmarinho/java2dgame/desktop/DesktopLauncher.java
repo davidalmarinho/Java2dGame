@@ -1,6 +1,5 @@
 package com.davidalmarinho.java2dgame.desktop;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.davidalmarinho.java2dgame.main.GameManager;

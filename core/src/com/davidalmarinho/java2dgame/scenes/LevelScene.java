@@ -49,8 +49,8 @@ public class LevelScene extends Scene {
         for (GameObject player : gameObjects) {
             if (player.getComponent(Player.class) != null) {
                 lockCamera(player);
-                /*player.transform.position.x += 100.0f * dt;
-                player.transform.position.y -= 40.0f * dt;*/
+                player.transform.position.x += (int) (100.0f * dt);
+                player.transform.position.y -= (int) (100.0f * dt);
             }
         }
 
@@ -80,7 +80,7 @@ public class LevelScene extends Scene {
 
     @Override
     public void resize(int width, int height) {
-
+        viewport.update(width, height);
     }
 
     @Override

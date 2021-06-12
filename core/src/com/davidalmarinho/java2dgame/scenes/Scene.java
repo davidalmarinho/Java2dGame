@@ -2,6 +2,7 @@ package com.davidalmarinho.java2dgame.scenes;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.davidalmarinho.java2dgame.game_objects.GameObject;
 import com.davidalmarinho.java2dgame.game_objects.components.BoxBounds;
 import com.davidalmarinho.java2dgame.graphics.Renderer;
@@ -15,6 +16,7 @@ public abstract class Scene implements Screen {
     public List<GameObject> gameObjects;
     protected Renderer renderer;
     protected OrthographicCamera camera;
+    protected StretchViewport viewport;
 
     public Scene() {
         //this.gameManager = gameManager;
@@ -23,6 +25,7 @@ public abstract class Scene implements Screen {
         // camera = Camera.getInstance();
         camera = new OrthographicCamera(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
         camera.setToOrtho(false, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
+        viewport = new StretchViewport(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
     }
 
     public abstract void init();
@@ -51,22 +54,22 @@ public abstract class Scene implements Screen {
 
         if (gameObject.transform.position.x < middleXScreen - gameObjectHalfWidth) {
             // Fix rendering of left's world
-            camera.position.x = middleXScreen;
+            camera.position.x = (int) middleXScreen;
         } else if (gameObject.transform.position.x > worldWidth - middleXScreen - gameObjectHalfWidth) {
             // Fix rendering of right's world
-            camera.position.x = worldWidth - middleXScreen;
+            camera.position.x = (int) worldWidth - middleXScreen;
         } else {
-            camera.position.x = gameObject.transform.position.x + gameObjectHalfWidth;
+            camera.position.x = (int) gameObject.transform.position.x + gameObjectHalfWidth;
         }
 
         if (gameObject.transform.position.y < middleYScreen - gameObjectHalfHeight) {
             // Fix rendering of bot's world
-            camera.position.y = middleYScreen;
+            camera.position.y = (int) middleYScreen;
         } else if (gameObject.transform.position.y > worldHeight - middleYScreen - gameObjectHalfHeight) {
             // Fix rendering of top's world
-            camera.position.y = worldHeight - middleYScreen;
+            camera.position.y = (int) worldHeight - middleYScreen;
         } else {
-            camera.position.y = gameObject.transform.position.y + gameObjectHalfHeight;
+            camera.position.y = (int) gameObject.transform.position.y + gameObjectHalfHeight;
         }
     }
 
